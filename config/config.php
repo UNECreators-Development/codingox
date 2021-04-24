@@ -10,4 +10,7 @@
 
     //Application Base Dir Path
     $config['BASE_URL'] = $_SERVER['DOCUMENT_ROOT'];
+
+    //Allow IP For Code Generator
+    $config['ALLOW_IP'] = ['127.0.0.1', '::1'];
 ?>
