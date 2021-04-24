@@ -1,4 +1,5 @@
 <?php
+    defined('APP_PATH') OR exit('No direct script access allowed');
     /* Form Validation Library */
     class form_validation {
 

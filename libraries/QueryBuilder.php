@@ -1,245 +1,171 @@
 <?php
-	require("database.php");
-	
-	class QueryBuilder extends Database {
-		public $db;
+require("database.php");
 
-		public function __construct() {
-			$this->db = $this->DBConnection();
-		}
+class QueryBuilder extends Database
+{
+	public $db;
 
+	public function __construct()
+	{
+		$this->db = $this->DBConnection();
+	}
+
+	function __call($method, $param)
+	{
 		//Custom Query Builder
-		public function custom_query($query)
-		{
-			return $result = $this->db->query($query);
+		if ($method == "query" || $method == "Query") {
+			return $result = $this->db->query($param[0]);
 		}
 
-		//Insert Data Into Database
-		public function set($table, $data)
-		{
-			$key = array_keys($data);
-			$value = ""; $column = ""; $i = 0;
-			
-			foreach($data as $row) {
+		//Insert Data Into Table
+		if ($method == "insert" || $method == "set" || $method == "add") {
+			$i = 0;
+			$value = "";
+			$column = "";
+			$key = array_keys($param[1]);
+
+			foreach ($param[1] as $row) {
 				$i++;
-				if(sizeof($data) > $i) {	
-					$value.= "'$row',";
-					$column.= $key[$i-1].",";
-				}
-				else {
-					$value.= "'$row'";
-					$column.= $key[$i-1];
-				}
-			}
-			
-			$query = "insert into ".$table." ($column) values ($value)";
-			
-			if ($this->db->query($query) == true) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-		
-		//Delete Data From Database
-		public function delete($table, $data)
-		{
-			$cnd = ""; $i = 0;
-			$key = array_keys($data);
-			
-			foreach($data as $row) {
-				$i++;
-				if(sizeof($data) > $i) {	
-					$cnd.= $key[$i-1]." = "."'$row' and ";
-					
-				}
-				else {
-					$cnd.= $key[$i-1]." = "."'$row'";
+				if (sizeof($param[1]) > $i) {
+					$value .= "'$row',";
+					$column .= $key[$i - 1] . ",";
+				} else {
+					$value .= "'$row'";
+					$column .= $key[$i - 1];
 				}
 			}
-			
-			$query = "delete from ".$table." where ".$cnd."";
-			
-			if ($this->db->query($query) == true) {
-				return true;
-			}
-			else {
-				return false;
-			}
+
+			$query = "insert into " . $param[0] . " ($column) values ($value)";
+
+			return $this->db->query($query);
 		}
 
-		//Delete All Data From Database
-		public function delete_all($table)
-		{
-			$query = "TRUNCATE TABLE ".$table."";
-			
-			if ($this->db->query($query) == true) {
-				return true;
+		//Delete Data From Table
+		if ($method == "delete" || $method == "remove") {
+			$i = 0;
+			$cnd = "";
+			$key = array_keys($param[1]);
+
+			foreach ($param[1] as $row) {
+				$i++;
+				if (sizeof($param[1]) > $i) {
+					$cnd .= $key[$i - 1] . " = " . "'$row' and ";
+				} else {
+					$cnd .= $key[$i - 1] . " = " . "'$row'";
+				}
 			}
-			else {
-				return false;
-			}
+
+			$query = "delete from " . $param[0] . " where " . $cnd . "";
+			return $this->db->query($query);
 		}
 
-		//Update Data Into Database
-		public function edit($table, $data, $condition)
-		{
-			$key1 = array_keys($data);
-			$key2 = array_keys($condition);
-			$field = ""; $cnd = ""; $i = 0; $j = 0;
-			
-			foreach($data as $row) {
+		//Delete All Data From Table
+		if ($method == "truncate" || $method == "delete_all" || $method == "remove_all") {
+			$query = "TRUNCATE TABLE " . $param[0] . "";
+
+			return $this->db->query($query);
+		}
+
+		//Update Data Into Table
+		if ($method == "update" || $method == "edit" || $method == "modify") {
+			$i = 0;
+			$j = 0;
+			$cnd = "";
+			$field = "";
+			$key1 = array_keys($param[1]);
+			$key2 = array_keys($param[2]);
+
+			foreach ($param[1] as $row) {
 				$i++;
-				if(sizeof($data) > $i) {	
-					$field.= $key1[$i-1]." = "."'$row', ";
-					
-				}
-				else {
-					$field.= $key1[$i-1]." = "."'$row'";
+				if (sizeof($param[1]) > $i) {
+					$field .= $key1[$i - 1] . " = " . "'$row', ";
+				} else {
+					$field .= $key1[$i - 1] . " = " . "'$row'";
 				}
 			}
-			
-			foreach($condition as $row) {
+
+			foreach ($param[2] as $row) {
 				$j++;
-				if(sizeof($condition) > $j) {	
-					$cnd.= $key2[$j-1]." = "."'$row' and ";
-					
-				}
-				else {
-					$cnd.= $key2[$j-1]." = "."'$row'";
+				if (sizeof($param[2]) > $j) {
+					$cnd .= $key2[$j - 1] . " = " . "'$row' and ";
+				} else {
+					$cnd .= $key2[$j - 1] . " = " . "'$row'";
 				}
 			}
-			
-			$query = "update ".$table." set ".$field." where ".$cnd."";
-			
-			if ($this->db->query($query) == true) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-		
-		//Fetch Data From Database
-		public function get($table)
-		{
-			$query = "select * from ".$table."";
-			return $result = $this->db->query($query);
-		}
-		
-		//Fetch Data From Database With Condition
-		public function get_where($table, $data)
-		{
-			$cnd = ""; $i = 0;
-			$key = array_keys($data);
-			
-			foreach($data as $row) {
-				$i++;
-				if(sizeof($data) > $i) {	
-					$cnd.= $key[$i-1]." = "."'$row' and ";
-					
-				}
-				else {
-					$cnd.= $key[$i-1]." = "."'$row'";
-				}
-			}
-			
-			$query = "select * from ".$table." where ".$cnd."";
-			return $result = $this->db->query($query);
-		}
-		
-		//Fetch Limited Data From Database
-		public function get_limit($table, $limit)
-		{
-			$query = "select * from ".$table." limit ".$limit."";
-			return $result = $this->db->query($query);
-		}
-        
-        //Fetch Limited Data From Database With Condition
-		public function get_limit_where($table, $data, $limit)
-		{
-			$cnd = ""; $i = 0;
-			$key = array_keys($data);
-				
-			foreach($data as $row) {
-				$i++;
-				if(sizeof($data) > $i) {	
-					$cnd.= $key[$i-1]." = "."'$row' and ";	
-				}
-				else {
-					$cnd.= $key[$i-1]." = "."'$row'";
-				}
-			}
-			$query = "select * from ".$table." where ".$cnd." limit ".$limit."";
-			return $result = $this->db->query($query);
-		}
-        
-		//Fetch Data From Database With Order
-		public function get_order($table, $col, $order)
-		{
-			$query = "select * from ".$table." order by ".$col." ".$order."";
-			return $result = $this->db->query($query);
-		}
-        
-		//Fetch Data From Database With Condition And Order
-		public function get_order_where($table, $data, $col, $order)
-		{
-			$cnd = ""; $i = 0;
-			$key = array_keys($data);
-				
-			foreach($data as $row) {
-				$i++;
-				if(sizeof($data) > $i) {	
-					$cnd.= $key[$i-1]." = "."'$row' and ";	
-				}
-				else {
-					$cnd.= $key[$i-1]." = "."'$row'";
-				}
-			}
-			$query = "select * from ".$table." where ".$cnd." order by ".$col." ".$order."";
-			return $result = $this->db->query($query);
-		}
-		
-		//Search Data Into Database
-		public function like($table, $data)
-		{
-			$cnd = ""; $i = 0;
-			$key = array_keys($data);
-			
-			foreach($data as $row) {
-				$i++;
-				if(sizeof($data) > $i) {
-					$cnd.= $key[$i-1]." like "."'$row%' or ";
-				}
-				else {
-					$cnd.= $key[$i-1]." like "."'$row%'";
-				}
-			}
-			
-			$query = "select * from ".$table." where ".$cnd."";
-			return $result = $this->db->query($query);
+
+			$query = "update " . $param[0] . " set " . $field . " where " . $cnd . "";
+
+			return $this->db->query($query);
 		}
 
-		//Result Of Database Query
-		public function result_array($object)
-		{
-			$result = array();
-			
-			while ($row = mysqli_fetch_array($object)) {
-				$result[] = $row;
+		//Fetch Data From Table
+		if ($method == "get" || $method == "get_where" || $method == "fetch" || $method == "select") {
+			switch (count($param)) {
+				case 1:
+					$query = "select * from " . $param[0] . "";
+					return $result = $this->db->query($query);
+				case 2:
+					$i = 0;
+					$cnd = "";
+					$key = array_keys($param[1]);
+
+					foreach ($param[1] as $row) {
+						$i++;
+						if (sizeof($param[1]) > $i) {
+							$cnd .= $key[$i - 1] . " = " . "'$row' and ";
+						} else {
+							$cnd .= $key[$i - 1] . " = " . "'$row'";
+						}
+					}
+					$query = "select * from " . $param[0] . " where " . $cnd . "";
+					return $result = $this->db->query($query);
 			}
-			return $result;
 		}
-		
-		public function row_array($object)
-		{
-			return $result[] = mysqli_fetch_assoc($object);
+
+		//Fetch Limited Data From Table
+		if ($method == "limit") {
+			switch (count($param)) {
+				case 1:
+					$query = "select * from " . $param[0] . " limit 10";
+					return $result = $this->db->query($query);
+				case 2:
+					$query = "select * from " . $param[0] . " limit " . $param[1] . "";
+					return $result = $this->db->query($query);
+				case 3:
+					$i = 0;
+					$cnd = "";
+					$key = array_keys($param[1]);
+
+					foreach ($param[1] as $row) {
+						$i++;
+						if (sizeof($param[1]) > $i) {
+							$cnd .= $key[$i - 1] . " = " . "'$row' and ";
+						} else {
+							$cnd .= $key[$i - 1] . " = " . "'$row'";
+						}
+					}
+					$query = "select * from " . $param[0] . " where " . $cnd . " limit " . $param[1] . "";
+					return $result = $this->db->query($query);
+			}
 		}
-		
-		public function num_rows($object)
-		{
-			return $result = mysqli_num_rows($object);
+
+		//Fetch Similar Data From Table
+		if ($method == "search" || $method == "find" || $method == "like") {
+			$i = 0;
+			$cnd = "";
+			$key = array_keys($param[1]);
+
+			foreach ($param[1] as $row) {
+				$i++;
+				if (sizeof($param[1]) > $i) {
+					$cnd .= $key[$i - 1] . " like " . "'$row%' or ";
+				} else {
+					$cnd .= $key[$i - 1] . " like " . "'$row%'";
+				}
+			}
+
+			$query = "select * from " . $param[0] . " where " . $cnd . "";
+			return $result = $this->db->query($query);
 		}
 	}
-?>
+}
