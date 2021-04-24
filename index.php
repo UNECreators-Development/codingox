@@ -47,6 +47,21 @@
     define('APP_PATH', $base_path);
     define('APP_URL', $config['APP_URL']);
 
+    //Load Code Generator
+    if ($page[0] == 'CodeGenerator') {
+        $ip = false;
+        for ($i = 0; $i < sizeof($config['ALLOW_IP']); $i++) {
+            if ($_SERVER['REMOTE_ADDR'] == $config['ALLOW_IP'][$i]) {
+                $ip = true;
+            }
+        }
+
+        if ($ip == true) {
+            require_once('system/CodeGenerator/Generator.php');
+            exit();
+        }
+    }
+
     //load controller
     $class = ucwords($page[0]);
     spl_autoload_register(function($class) {
