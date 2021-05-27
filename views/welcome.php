@@ -6,14 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>PHP Framework</title>
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="<?= media_url(); ?>css/styles.css" rel="stylesheet" />
+    <title>Codingox | PHP Framework</title>
+    <link href="<?= media_url(); ?>system/css/styles.css" rel="stylesheet" />
 </head>
 
 <body id="page-top">
@@ -21,7 +15,7 @@
     <header class="masthead bg-primary text-white text-center">
         <div class="container d-flex align-items-center flex-column">
             <!-- Masthead Avatar Image-->
-            <img class="masthead-avatar mb-5" src="<?= media_url(); ?>image/avataaars.svg" alt="" />
+            <img class="masthead-avatar mb-5" src="<?= media_url(); ?>system/image/avataaars.svg" alt="" />
             <!-- Masthead Heading-->
             <h1 class="masthead-heading text-uppercase mb-0">Start Your Project</h1>
             <!-- Icon Divider-->
@@ -54,13 +48,6 @@
                 <div class="col-lg-5 mr-auto">
                     <p class="lead text-justify">You can create your own custom framework for the masthead, change the code in the folders, and add your own code to make it fully functional!</p>
                 </div>
-            </div>
-            <!-- About Section Button-->
-            <div class="text-center mt-4">
-                <a class="btn btn-xl btn-outline-light" href="javascript:void(0)">
-                    <i class="fas fa-download mr-2"></i>
-                    Free Download!
-                </a>
             </div>
         </div>
     </section>
@@ -99,17 +86,11 @@
     <!-- Copyright Section-->
     <div class="copyright py-2 text-center text-white">
         <div class="container">
-            <p>Copyright © <a href="http://mindyouinfotech.com/" style="text-decoration: none">Mind You Infotech (P) Ltd.</a></p>
+            <p>Copyright © 2020 <a href="http://framework.upgradeads.in/" style="text-decoration: none">Codingox</a></p>
         </div>
     </div>
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Third party plugin JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="<?= media_url(); ?>js/scripts.js"></script>
+    <script src="<?= media_url(); ?>system/js/jquery.js"></script>
 </body>
 
 </html>

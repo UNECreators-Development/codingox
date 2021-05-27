@@ -5,9 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Not Found</title>
-    <link href="<?= APP_URL . '/' . APP_PATH; ?>web/system/css/font.css" rel="stylesheet">
-    <script src="<?= APP_URL . '/' . APP_PATH; ?>web/system/js/jquery.js"></script>
+    <title><?php echo $title = isset($title) ? $title : 'Page Not Found'; ?></title>
     <style>
         :root {
             --main-color: #eaeaea;
@@ -29,24 +27,10 @@
         }
 
         h2 {
-            margin: 20px auto 30px auto;
-            font-family: 'Encode Sans Semi Condensed', Verdana, sans-serif;
-            font-size: 1.5rem;
             font-weight: 200;
+            font-size: 1.5rem;
             text-align: center;
-        }
-
-        h1,
-        h2 {
-            -webkit-transition: opacity 0.5s linear, margin-top 0.5s linear;
-            /* Safari */
-            transition: opacity 0.5s linear, margin-top 0.5s linear;
-        }
-
-        .loading h1,
-        .loading h2 {
-            margin-top: 0px;
-            opacity: 0;
+            font-family: 'Encode Sans Semi Condensed', Verdana, sans-serif;
         }
 
         .gears {
@@ -232,21 +216,12 @@
         .gear.three {
             -webkit-animation: clockwiseError 2s linear infinite;
         }
-
-        .loading .gear.one,
-        .loading .gear.three {
-            -webkit-animation: clockwise 3s linear infinite;
-        }
-
-        .loading .gear.two {
-            -webkit-animation: anticlockwise 3s linear infinite;
-        }
     </style>
 </head>
 
-<body class="loading">
-    <h1>404</h1>
-    <h2><b>File Not Found</b></h2>
+<body>
+    <h1><?php echo $code = isset($code) ? $code : '404'; ?></h1>
+    <h2><b><?php echo $message = isset($message) ? $message : 'Page Not Found'; ?></b></h2>
     <div class="gears">
         <div class="gear one">
             <div class="bar"></div>
@@ -267,10 +242,3 @@
 </body>
 
 </html>
-<script>
-    $(function() {
-        setTimeout(function() {
-            $('body').removeClass('loading');
-        }, 500);
-    });
-</script>
