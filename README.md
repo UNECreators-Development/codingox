@@ -1,5 +1,6 @@
 # Codingox
-# PHP Framework
-# Author - Satyendra Sagar Singh
-# Download Link - http://framework.upgradeads.in
-# Linkedin - https://in.linkedin.com/in/satyendra-sagar-singh
+--------------------------------------------------------------
+- Author    - Satyendra Sagar Singh
+- Website   - http://framework.upgradeads.in
+- Twitter   - https://twitter.com/satyendrasagar5
+- Linkedin  - https://in.linkedin.com/in/satyendra-sagar-singh
