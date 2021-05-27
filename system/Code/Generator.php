@@ -2,27 +2,42 @@
 defined('APP_PATH') or exit('No direct script access allowed');
 
 require_once('Controller.php');
+require_once('tables.php');
 require_once('Model.php');
 require_once('Form.php');
 
+$status = false;
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") :
     if (isset($_POST['controllerClass'])) :
-        if (!file_exists($base_path . 'Controllers/' . ucfirst($_POST['controllerClass']) . '.php')) :
+        $fileName = explode('/', $_POST['controllerClass']);
+        $class = $fileName[array_key_last($fileName)];
+        unset($fileName[array_key_last($fileName)]);
+
+        $controller_path = path() . controller_path . DIRECTORY_SEPARATOR . implode('/', $fileName) . DIRECTORY_SEPARATOR;
+        $fileName = explode('.', $class);
+
+        if (!file_exists($controller_path . ucfirst($fileName[0]) . '.php')) :
             echo "success";
         else :
             echo "already";
         endif;
+
         exit();
     endif;
 
     if (isset($_POST['type'])) :
         if ($_POST['type'] == "controller") :
             if (!empty($_POST['controller']) && !empty($_POST['action']) && !empty($_POST['viewPath'])) :
-                controller($_POST['controller'], $_POST['action'], $_POST['viewPath']);
+                $status = controller($_POST['controller'], $_POST['action'], $_POST['viewPath']);
+            endif;
+        elseif ($_POST['type'] == "model") :
+            if (!empty($_POST['model']) && !empty($_POST['modelPath'])) :
+                $status = model($_POST['model'], $_POST['operation'], $_POST['modelPath']);
             endif;
         elseif ($_POST['type'] == "form") :
             if (!empty($_POST['viewName']) && !empty($_POST['field']) && !empty($_POST['viewPath'])) :
-                form($_POST['viewName'], $_POST['field'], $_POST['viewPath']);
+                $status = form($_POST['viewName'], $_POST['field'], $_POST['viewPath']);
             endif;
         endif;
     endif;
@@ -36,8 +51,9 @@ endif;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="none">
     <title>Welcome To CodeGenerator</title>
-    <link href="<?= APP_URL . '/' . APP_PATH; ?>web/system/css/main.css" rel="stylesheet">
-    <script src="<?= APP_URL . '/' . APP_PATH; ?>web/system/js/jquery.js"></script>
+    <link href="<?= APP_URL . DIRECTORY_SEPARATOR . APP_PATH; ?>web/system/css/main.css" rel="stylesheet">
+    <script src="<?= APP_URL . DIRECTORY_SEPARATOR . APP_PATH; ?>web/system/js/jquery.js"></script>
+    <script src="<?= APP_URL . DIRECTORY_SEPARATOR . APP_PATH; ?>web/system/js/bootstrap.js"></script>
 </head>
 
 <body>
@@ -52,7 +68,7 @@ endif;
                             <a class="nav-link" href="javascript:void(0)">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= APP_URL . '/' . APP_PATH; ?>">Application</a>
+                            <a class="nav-link" href="<?= APP_URL . DIRECTORY_SEPARATOR . APP_PATH; ?>">Application</a>
                         </li>
                     </ul>
                 </div>
@@ -90,9 +106,9 @@ endif;
                         <div class="row">
                             <div class="col-lg-8 col-md-10" id="form-fields">
                                 <div class="form-group field-generator-controllerclass required">
-                                    <label class="control-label help" title="This is the name of the controller class to be generated." for="generator-controllerclass">Controller Class</label>
                                     <input type="hidden" name="type" value="controller">
-                                    <input type="text" id="generator-controllerclass" class="form-control" name="controller" aria-required="true" required>
+                                    <label class="control-label help" title="This is the name of the controller class to be generated." for="generator-controllerclass">Controller Class</label>
+                                    <input type="text" id="generator-controllerclass" class="form-control" name="controller" aria-required="true" required placeholder="ex: admin" />
                                     <p id="controllerMsg" class="mt-2 text-danger" style="display: none"></p>
                                 </div>
                                 <div class="form-group field-generator-actions">
@@ -101,10 +117,44 @@ endif;
                                 </div>
                                 <div class="form-group field-generator-viewpath">
                                     <label class="control-label help" data-toggle="popover" title="Specify the directory for storing the view scripts for the controller." data-placement="right" for="generator-viewpath">View Path</label>
-                                    <input type="text" id="generator-viewpath" value="views/" class="form-control" name="viewPath" required>
+                                    <input type="text" id="generator-viewpath" value="<?= view_path; ?>/" class="form-control" name="viewPath" required>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" id="btn-controller" disabled class="btn btn-primary" name="preview">Generate</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-8" id="model" style="display: none">
+                <div class="default-view">
+                    <h1>Model Generator</h1>
+                    <form id="model-generator" action="" method="post">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-10" id="form-fields">
+                                <div class="form-group field-generator-modelclass required">
+                                    <input type="hidden" name="type" value="model">
+                                    <label class="control-label help" title="This is the name of the table to generate model." for="generator-modelclass">Table Name</label>
+                                    <select id="generator-modelclass" class="form-control" name="model" aria-required="true" required>
+                                        <option value="">--Select Table--</option>
+                                        <?= $opt; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group field-generator-actions">
+                                    <label class="control-label" for="generator-actions">Operations</label><br />
+                                    <input type="checkbox" name="operation[]" value="select" checked> Select &nbsp;
+                                    <input type="checkbox" name="operation[]" value="insert" checked> Insert &nbsp;
+                                    <input type="checkbox" name="operation[]" value="update" checked> Update &nbsp;
+                                    <input type="checkbox" name="operation[]" value="delete" checked> Delete &nbsp;
+                                </div>
+                                <div class="form-group field-generator-viewpath">
+                                    <label class="control-label help" data-toggle="popover" title="Specify the directory for storing the model scripts." data-placement="right" for="generator-modelpath">Model Path</label>
+                                    <input type="text" id="generator-modelpath" value="<?= model_path; ?>/" class="form-control" name="modelPath" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" id="btn-model" class="btn btn-primary" name="preview">Generate</button>
                                 </div>
                             </div>
                         </div>
@@ -119,9 +169,9 @@ endif;
                         <div class="row">
                             <div class="col-lg-8 col-md-10" id="form-fields">
                                 <div class="form-group field-generator-viewname required">
-                                    <label class="control-label help" title="This is the view name with respect to the view path." for="generator-viewname">View Name</label>
                                     <input type="hidden" name="type" value="form">
-                                    <input type="text" id="generator-viewname" class="form-control" name="viewName" aria-required="true" aria-invalid="true" required>
+                                    <label class="control-label help" title="This is the view name with respect to the view path." for="generator-viewname">View Name</label>
+                                    <input type="text" id="generator-viewname" class="form-control" name="viewName" aria-required="true" aria-invalid="true" required placeholder="ex: contact" />
                                 </div>
                                 <div class="form-group field-generator-modelclass required">
                                     <label class="control-label help" title="This is the form field for collecting the form input." for="generator-modelclass">Form Field</label>
@@ -129,7 +179,7 @@ endif;
                                 </div>
                                 <div class="form-group sticky field-generator-viewpath required">
                                     <label class="control-label help" title="This is the root view path to keep the generated view files. You may provide either a directory or a path." for="generator-viewpath">View Path</label>
-                                    <input type="text" id="generator-viewpath" class="form-control" name="viewPath" value="views/" aria-required="true" required>
+                                    <input type="text" id="generator-viewpath" class="form-control" name="viewPath" value="<?= view_path; ?>/" aria-required="true" required>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary" name="preview">Generate</button>
@@ -154,31 +204,46 @@ endif;
             </div>
         </div>
     </footer>
+    <!-- Status Modal -->
+    <div class="modal fade" id="status" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3 class="text-center">File Successfully Generated...</h3>
+                </div>
+                <div class="text-center p-3">
+                    <button type="button" id="btn-status" class="btn btn-success">Continue...</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
 <script>
-    $('a[href^="#"]').on('click', function(event) {
-        var target = $(this).attr('href');
-        if (target == "#controller") {
-            $('#model').hide();
-            $('#form').hide();
-            $(target).show();
-        } else if (target == "#model") {
-            $('#controller').hide();
-            $('#form').hide();
-            $(target).show();
-        } else if (target == "#form") {
-            $('#controller').hide();
-            $('#model').hide();
-            $(target).show();
-        } else {
-            $('#controller').hide();
-            $('#model').hide();
-            $('#form').hide();
-        }
-    });
     $(document).ready(function() {
+        // Open Forms
+        $('a[href^="#"]').click(function() {
+            var target = $(this).attr('href');
+            if (target == "#controller") {
+                $('#model').hide();
+                $('#form').hide();
+                $(target).show();
+            } else if (target == "#model") {
+                $('#controller').hide();
+                $('#form').hide();
+                $(target).show();
+            } else if (target == "#form") {
+                $('#controller').hide();
+                $('#model').hide();
+                $(target).show();
+            } else {
+                $('#controller').hide();
+                $('#model').hide();
+                $('#form').hide();
+            }
+        });
+        // Check Exists Files
         $('#generator-controllerclass').keyup(function() {
             $.ajax({
                 url: "",
@@ -201,5 +266,14 @@ endif;
                 }
             })
         })
+        // Hide Status Modal
+        $('#btn-status').click(function() {
+            $('#status').modal('hide');
+        })
     })
 </script>
+<?php if ($status == true) : ?>
+    <script>
+        $('#status').modal('show');
+    </script>
+<?php endif; ?>
