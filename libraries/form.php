@@ -131,18 +131,36 @@ class form
                         case 'min_length':
                             if (strlen($_POST[$field]) < $string[1]) {
                                 $valid--;
-                                $this->formError .= "Minimum length of {$field} field is {$string[1]}<br/>";
+                                $this->formError .= "Minimum length of {$field} field is {$string[1]}\n";
                             }
                             break;
                         case 'max_length':
                             if (strlen($_POST[$field]) > $string[1]) {
                                 $valid--;
-                                $this->formError .= "Maxmimum length of {$field} field is {$string[1]}<br/>";
+                                $this->formError .= "Maxmimum length of {$field} field is {$string[1]}\n";
+                            }
+                            break;
+						case 'length':
+                            if (strlen($_POST[$field]) != $string[1]) {
+                                $valid--;
+                                $this->formError .= "Required Length of {$field} field is {$string[1]}\n";
+                            }
+                            break;
+						case 'less_than':
+                            if ((int)($_POST[$field]) > (int)$string[1]) {
+                                $valid--;
+                                $this->formError .= "Value of {$field} field should be less than {$string[1]}\n";
+                            }
+                            break;
+						case 'greater_than':
+                            if ((int)($_POST[$field]) < (int)$string[1]) {
+                                $valid--;
+                                $this->formError .= "Value of {$field} field should be greater than {$string[1]}\n";
                             }
                             break;
                         default:
                             $valid--;
-                            $this->formError .= "{$value} is not valid rule<br/>";
+                            $this->formError .= "{$value} is not valid rule\n";
                             break;
                     }
                 } else {
@@ -150,12 +168,36 @@ class form
                         case 'required':
                             if (empty($_POST[$field])) {
                                 $valid--;
-                                $this->formError .= "The {$field} field is required<br/>";
+                                $this->formError .= "The {$field} field is required\n";
+                            }
+                            break;
+						case 'valid_email':
+                            if (!$this->is_email($field)) {
+                                $valid--;
+                                $this->formError .= "The {$field} field is not contain valid email\n";
+                            }
+                            break;
+						case 'valid_url':
+                            if (!$this->is_link($field)) {
+                                $valid--;
+                                $this->formError .= "The {$field} field is not contain valid URL\n";
+                            }
+                            break;
+						case 'valid_number':
+                            if (!$this->is_number($field)) {
+                                $valid--;
+                                $this->formError .= "The {$field} field is not contain valid number\n";
+                            }
+                            break;
+						case 'valid_text':
+                            if (!$this->is_text($field)) {
+                                $valid--;
+                                $this->formError .= "The {$field} field is not contain valid text\n";
                             }
                             break;
                         default:
                             $valid--;
-                            $this->formError .= "{$value} is not valid rule<br/>";
+                            $this->formError .= "{$value} is not valid rule\n";
                             break;
                     }
                 }
