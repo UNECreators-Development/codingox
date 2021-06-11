@@ -47,9 +47,10 @@ if (!function_exists('model')) {
 			}
 
 			if ($value == 'select') {
-				$db = 'if ($where == NULL) {' . "\n\t\t\t" . 'return $this->db->get' . '($this->table)->findAll();' . "\n\t\t}";
-				$db .= ' else {' . "\n\t\t\t" . 'return $this->db->get_where' . '($this->table, $where)->findAll();' . "\n\t\t}";
-				$function .= "\n\tpublic function " . $value . "($where = NULL)\n\t{\n\t\t" . $db . "\n\t}\n\t";
+				$row = '$row = "findAll"';
+				$db = 'if ($where == NULL) {' . "\n\t\t\t" . 'return $this->db->get' . '($this->table)->{$row}();' . "\n\t\t}";
+				$db .= ' else {' . "\n\t\t\t" . 'return $this->db->get_where' . '($this->table, $where)->{$row}();' . "\n\t\t}";
+				$function .= "\n\tpublic function " . $value . "($where = NULL, $row)\n\t{\n\t\t" . $db . "\n\t}\n\t";
 			}
 		}
 
