@@ -33,25 +33,29 @@ class QueryBuilder extends Database
 	/* Global variables */
 	protected $db;
 
-	protected $from;
+	protected $from = NULL;
 
-	protected $like;
+	protected $like = NULL;
 
-	protected $join;
+	protected $join = NULL;
 
-	protected $limit;
+	protected $limit = NULL;
 
-	protected $where;
+	protected $where = NULL;
 
-	protected $group;
+	protected $group = NULL;
 
-	protected $order;
+	protected $order = NULL;
 
-	protected $query;
+	protected $query = NULL;
 
-	protected $fields;
+	protected $field = NULL;
 
-	protected $prefix;
+	protected $offset = NULL;
+
+	protected $prefix = NULL;
+
+	protected $prepared_query = NULL;
 
 	/**
 	 * Class constructor
@@ -71,15 +75,27 @@ class QueryBuilder extends Database
 	public function __toString(): string
 	{
 		$join = $this->join == null ? "" : "{$this->join}";
-		$field = $this->fields == null ? "*" : "{$this->fields}";
+		$field = $this->field == null ? "*" : "{$this->field}";
 		$where = $this->where == null ? "" : " WHERE {$this->where}";
 		$limit = $this->limit == null ? "" : " LIMIT {$this->limit}";
 		$group = $this->group == null ? "" : " GROUP BY {$this->group}";
 		$order = $this->order == null ? "" : " ORDER BY {$this->order}";
-		$where == "" ? $like = $this->like == null ? "" : " WHERE {$this->like}" : $like = $this->like == null ? "" : " AND {$this->like}";
+		$where == null ? ($like = $this->like == null ? "" : " WHERE {$this->like}") : ($like = $this->like == null ? "" : " AND {$this->like}");
 
-		$this->query == null ? $return = "SELECT {$field} FROM {$this->from} {$join} {$where} {$like} {$group} {$order} {$limit}" : $return = "{$this->query} {$where}";
-		return $return;
+		$query = $this->query == null ? "SELECT {$field} FROM {$this->from} {$join} {$where} {$like} {$group} {$order} {$limit}" : "{$this->query} {$where}";
+		$this->prepared_query 	= $query;
+		
+		/* Clear variables value */
+		$this->field 	= NULL;
+		$this->join 	= NULL;
+		$this->where 	= NULL;
+		$this->like 	= NULL;
+		$this->group 	= NULL;
+		$this->order 	= NULL;
+		$this->limit 	= NULL;
+		$this->query 	= NULL;
+
+		return $query;
 	}
 
 	/**
@@ -98,10 +114,10 @@ class QueryBuilder extends Database
 			}
 
 			$this->query = implode('', $bindArray);
-		} else {			
+		} else {
 			$this->query = $query;
 		}
-		
+
 		return $this;
 	}
 
@@ -302,7 +318,7 @@ class QueryBuilder extends Database
 	 **/
 	public function select(string ...$fields): self
 	{
-		$this->fields = implode(', ', $fields);
+		$this->field = implode(', ', $fields);
 		return $this;
 	}
 
@@ -313,7 +329,7 @@ class QueryBuilder extends Database
 	 **/
 	public function selectMax(string ...$fields): self
 	{
-		$this->fields = "MAX(" . implode(', ', $fields) . ") as " . implode(', ', $fields);
+		$this->field = "MAX(" . implode(', ', $fields) . ") as " . implode(', ', $fields);
 		return $this;
 	}
 
@@ -324,7 +340,7 @@ class QueryBuilder extends Database
 	 **/
 	public function selectMin(string ...$fields): self
 	{
-		$this->fields = "MIN(" . implode(', ', $fields) . ") as " . implode(', ', $fields);
+		$this->field = "MIN(" . implode(', ', $fields) . ") as " . implode(', ', $fields);
 		return $this;
 	}
 
@@ -335,7 +351,7 @@ class QueryBuilder extends Database
 	 **/
 	public function selectAvg(string ...$fields): self
 	{
-		$this->fields = "AVG(" . implode(', ', $fields) . ") as " . implode(', ', $fields);
+		$this->field = "AVG(" . implode(', ', $fields) . ") as " . implode(', ', $fields);
 		return $this;
 	}
 
@@ -346,7 +362,7 @@ class QueryBuilder extends Database
 	 **/
 	public function selectSum(string ...$fields): self
 	{
-		$this->fields = "SUM(" . implode(', ', $fields) . ") as " . implode(', ', $fields);
+		$this->field = "SUM(" . implode(', ', $fields) . ") as " . implode(', ', $fields);
 		return $this;
 	}
 
@@ -357,7 +373,7 @@ class QueryBuilder extends Database
 	 **/
 	public function selectCount(string ...$fields): self
 	{
-		$this->fields = "COUNT(" . implode(', ', $fields) . ") as " . implode(', ', $fields);
+		$this->field = "COUNT(" . implode(', ', $fields) . ") as " . implode(', ', $fields);
 		return $this;
 	}
 
@@ -621,28 +637,28 @@ class QueryBuilder extends Database
 	public function count(string ...$field)
 	{
 		if ($field != null) :
-			$this->fields = "COUNT(" . implode(', ', $field) . ") as " . implode(', ', $field);
+			$this->field = "COUNT(" . implode(', ', $field) . ") as " . implode(', ', $field);
 			return $this;
 		else :
-			if ($this->prepare($this)) {
-				$result = $this->db->query($this);
+			if ($this->prepare()) {
+				$result = $this->db->query($this->prepared_query);
 				return mysqli_num_rows($result);
 			}
 		endif;
 	}
-	
+
 	/**
 	 * Count fields in query result
 	 * @return	int
 	 */
 	public function field_count()
 	{
-		if ($this->prepare($this)) {
-			$result = $this->db->query($this);
+		if ($this->prepare()) {
+			$result = $this->db->query($this->prepared_query);
 			return mysqli_num_fields($result);
 		}
 	}
-	
+
 	/**
 	 * Offset data from query result
 	 * @param	int $offset
@@ -650,9 +666,12 @@ class QueryBuilder extends Database
 	 */
 	public function offset(int $offset)
 	{
-		if ($this->prepare($this)) {
-			$result = $this->db->query($this);
-			return mysqli_data_seek($result);
+		if ($this->prepare()) {
+			$result = $this->db->query($this->prepared_query);
+			mysqli_data_seek($result, $offset);
+			$this->offset = $result;
+
+			return $this;
 		}
 	}
 
@@ -673,8 +692,8 @@ class QueryBuilder extends Database
 	 **/
 	public function findOne()
 	{
-		if ($this->prepare($this)) {
-			$result = $this->db->query($this);
+		if ($this->prepare()) {
+			$result = $this->db->query($this->prepared_query);
 			return mysqli_fetch_assoc($result);
 		}
 	}
@@ -685,14 +704,9 @@ class QueryBuilder extends Database
 	 **/
 	public function findAll()
 	{
-		if ($this->prepare($this)) {
-			$resultArray = array();
-			$result = $this->db->query($this);
-
-			while ($row = mysqli_fetch_array($result)) {
-				$resultArray[] = $row;
-			}
-			return $resultArray;
+		if ($this->prepare()) {
+			$result = ($this->offset != NULL) ? $this->offset : $this->db->query($this->prepared_query);
+			return mysqli_fetch_all($result, MYSQLI_BOTH);
 		}
 	}
 
@@ -702,8 +716,8 @@ class QueryBuilder extends Database
 	 **/
 	public function findRow()
 	{
-		if ($this->prepare($this)) {
-			$result = $this->db->query($this);
+		if ($this->prepare()) {
+			$result = $this->db->query($this->prepared_query);
 			return mysqli_fetch_row($result);
 		}
 	}
@@ -712,11 +726,21 @@ class QueryBuilder extends Database
 	 * Execute query for get table row object
 	 * @return	array|object
 	 **/
-	public function findObject()
+	public function findObject(bool $bool = TRUE)
 	{
-		if ($this->prepare($this)) {
-			$result = $this->db->query($this);
-			return mysqli_fetch_object($result);
+		if ($this->prepare()) {
+			$resultArray = array();
+			$result = $this->db->query($this->prepared_query);
+
+			if ($bool == TRUE) {
+				while ($dataObject = mysqli_fetch_object($result)) {
+					$resultArray[] = $dataObject;
+				}
+
+				return $resultArray;
+			} else {
+				return mysqli_fetch_object($result);
+			}
 		}
 	}
 
@@ -726,7 +750,7 @@ class QueryBuilder extends Database
 	 **/
 	public function findLastId()
 	{
-		return mysqli_insert_id($this->id);
+		return mysqli_insert_id($this->db);
 	}
 
 	/**
@@ -775,8 +799,8 @@ class QueryBuilder extends Database
 	 **/
 	public function execute()
 	{
-		if ($this->prepare($this)) {
-			return $this->db->query($this);
+		if ($this->prepare()) {
+			return $this->db->query($this->prepared_query);
 		}
 	}
 
