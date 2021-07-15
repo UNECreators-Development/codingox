@@ -17,8 +17,8 @@
  *
  * @author		Satyendra Sagar Singh
  * @license		https://opensource.org/licenses/MIT	MIT License
- * @link		http://framework.upgradeads.in
- * @since		Version 1.0.0
+ * @link		https://codingox.epizy.com
+ * @since		Version 1.2.0
  * @filesource
  **/
 
@@ -37,7 +37,7 @@ $config['APP_PAGE'] = "index.php";
 $config['APP_ENV'] = "development"; //production
 
 /* Allow URL pattern to match request */
-$config['URI_PATTERN'] = 'a-z A-Z 0-9%.:_\-';
+$config['URI_PATTERN'] = 'a-z A-Z 0-9%.:=?&_\-';
 
 /* Set session property */
 $config['SESSION_TIME'] = 7200;

@@ -17,11 +17,11 @@
  *
  * @author		Satyendra Sagar Singh
  * @license		https://opensource.org/licenses/MIT	MIT License
- * @link		http://framework.upgradeads.in
- * @since		Version 1.0.0
+ * @link		https://codingox.epizy.com
+ * @since		Version 1.2.0
  * @filesource
  **/
- 
+
 require('config' . DIRECTORY_SEPARATOR . 'config.php'); //Do Not Remove This Line.
 require('config' . DIRECTORY_SEPARATOR . 'router.php'); //Do Not Remove This Line.
 
@@ -33,8 +33,9 @@ if ($config['APP_ENV'] == "production") {
 }
 
 $AppPath = null; //Application Directory
-$root = explode('/', $config['BASE_PATH']);
-$path = explode('/',  str_replace('\\', '/', __DIR__));
+$path = explode('/', str_replace('\\', '/', __DIR__));
+$root = explode('/', str_replace('\\', '/', $config['BASE_PATH']));
+
 $path = array_values(array_filter(array_diff($path, $root)));
 $page = array_values(array_filter(explode('/', $_SERVER['PHP_SELF'])));
 $page = array_values(array_filter(array_diff($page, $path, [$config['APP_PAGE']])));

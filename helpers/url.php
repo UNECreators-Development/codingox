@@ -17,8 +17,8 @@
  *
  * @author		Satyendra Sagar Singh
  * @license		https://opensource.org/licenses/MIT	MIT License
- * @link		http://framework.upgradeads.in
- * @since		Version 1.0.0
+ * @link		https://codingox.epizy.com
+ * @since		Version 1.2.0
  * @filesource
  **/
 
@@ -33,7 +33,7 @@ if (!function_exists('base_url')) {
 	 **/
 	function base_url()
 	{
-		return APP_URL . DIRECTORY_SEPARATOR . APP_PATH;
+		return APP_URL . '/' . APP_PATH;
 	}
 }
 
@@ -45,7 +45,7 @@ if (!function_exists('site_url')) {
 	 **/
 	function site_url($url = '')
 	{
-		return APP_URL . DIRECTORY_SEPARATOR . APP_PATH . $url;
+		return APP_URL . '/' . APP_PATH . $url;
 	}
 }
 
@@ -57,7 +57,7 @@ if (!function_exists('media_url')) {
 	 **/
 	function media_url($url = '')
 	{
-		return APP_URL . DIRECTORY_SEPARATOR . APP_PATH . resources_path . DIRECTORY_SEPARATOR . $url;
+		return APP_URL . '/' . APP_PATH . resources_path . '/' . $url;
 	}
 }
 
@@ -83,7 +83,7 @@ if (!function_exists('redirect')) {
 	{
 		if ($url != null) {
 			$type = $type == 'auto' ? 'Location:' : 'Refresh:0';
-			header($type . APP_URL . DIRECTORY_SEPARATOR . APP_PATH . $url);
+			header($type . APP_URL . '/' . APP_PATH . $url);
 		} else {
 			header('Refresh:0');
 		}

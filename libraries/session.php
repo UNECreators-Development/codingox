@@ -17,14 +17,14 @@
  *
  * @author		Satyendra Sagar Singh
  * @license		https://opensource.org/licenses/MIT	MIT License
- * @link		http://framework.upgradeads.in
- * @since		Version 1.0.0
+ * @link		https://codingox.epizy.com
+ * @since		Version 1.2.0
  * @filesource
  **/
 
 defined('APP_PATH') or exit('No direct script access allowed');
 
-/* session library */
+/* Session library */
 
 class session
 {

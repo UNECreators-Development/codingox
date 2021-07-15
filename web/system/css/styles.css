@@ -1,15 +1,4 @@
 @charset "UTF-8";
-/*!
-* Start Bootstrap - Freelancer v6.0.5 (https://startbootstrap.com/theme/freelancer)
-* Copyright 2013-2020 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-freelancer/blob/master/LICENSE)
-*/
-/*!
- * Bootstrap v4.5.3 (https://getbootstrap.com/)
- * Copyright 2011-2020 The Bootstrap Authors
- * Copyright 2011-2020 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -6471,10 +6460,6 @@ a.close.disabled {
   vertical-align: text-top !important;
 }
 
-.bg-primary {
-  background-color: #1abc9c !important;
-}
-
 a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
@@ -10445,16 +10430,6 @@ a.text-dark:focus {
   font-size: 1.25rem;
 }
 
-.btn-social {
-  border-radius: 100%;
-  display: inline-flex;
-  width: 3.25rem;
-  height: 3.25rem;
-  font-size: 1.25rem;
-  justify-content: center;
-  align-items: center;
-}
-
 .scroll-to-top {
   z-index: 1042;
   right: 1rem;
@@ -10533,7 +10508,6 @@ a.text-dark:focus {
   }
 }
 .masthead {
-  padding-top: calc(6rem + 74px);
   padding-bottom: 6rem;
 }
 .masthead .masthead-heading {
@@ -10549,7 +10523,6 @@ a.text-dark:focus {
 
 @media (min-width: 992px) {
   .masthead {
-    padding-top: calc(6rem + 104px);
     padding-bottom: 6rem;
   }
   .masthead .masthead-heading {

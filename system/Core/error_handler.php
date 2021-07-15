@@ -17,8 +17,8 @@
  *
  * @author		Satyendra Sagar Singh
  * @license		https://opensource.org/licenses/MIT	MIT License
- * @link		http://framework.upgradeads.in
- * @since		Version 1.0.0
+ * @link		https://codingox.epizy.com
+ * @since		Version 1.2.0
  * @filesource
  **/
 
@@ -27,7 +27,7 @@ defined('APP_PATH') or exit('No direct script access allowed');
 /* Set error handler to handle all error */
 set_error_handler('errorHandler');
 
-function errorHandler($errorNo, $errorMessage, $errorFile, $errorLine, $errorContext)
+function errorHandler($errorNo = 3, $errorMessage = null, $errorFile = null, $errorLine = null, $errorContext = null)
 {
     $errorType = [1 => 'Error', 2 => 'Warning', 8 => 'Notice', 256 => 'Error', 512 => 'Warning', 1024 => 'Notice'];
     config['APP_ENV'] != 'production' ? ob_end_clean() : NULL;
@@ -73,7 +73,7 @@ if (!function_exists('log_error')) {
      * @param   int|(optional)      $line
      * @return  bool
      */
-    function log_error($code = 1, $message, $file = __FILE__, $line = __LINE__)
+    function log_error($code = 1, $message = null, $file = __FILE__, $line = __LINE__)
     {
         $errorType = [1 => 'Error', 2 => 'Warning', 8 => 'Notice', 256 => 'Error', 512 => 'Warning', 1024 => 'Notice'];
 
