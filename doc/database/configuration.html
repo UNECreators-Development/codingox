@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Codingox | Database Configuration</title>
+  <!-- <link rel="shortcut icon" href="" /> -->
+  <link rel="stylesheet" href="../assets/css/webtheme.css" type="text/css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Codingox</a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="../general/welcome.html">Welcome to Codingox</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation
+              Instructions</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Codingox Overview</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a>
+          </li>
+        </ul>
+        <ul class="current">
+          <li class="toctree-l1 current"><a class="reference internal" href="index.html">Database</a>
+            <ul class="current">
+              <li class="toctree-l2"><a class="reference internal" href="examples.html">Quick Start</a>
+              </li>
+              <li class="toctree-l2 current"><a class="current reference internal"
+                  href="javascript:void(0)">Configuration</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="connecting.html">Database Connection</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="queries.html">Running Queries</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="results.html">Query Results</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="query_builder.html">Query Builder Class</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Libraries</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Codingox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ul class="wy-breadcrumbs">
+              <li><a href="../index.html">Docs</a>&raquo;</li>
+
+              <li><a href="index.html">Database Reference</a>&raquo;</li>
+
+              <li>Database Configuration</li>
+            </ul>
+            <hr />
+          </div>
+
+          <div role="main" class="document">
+            <div class="section" id="database-configuration">
+              <h1>Database Configuration<a class="headerlink" href="#database-configuration"
+                  title="Permalink to this headline">¶</a></h1>
+              <p>Codingox has a config file that lets you store your database
+                connection values (username, password, database name, etc.). The config
+                file is located at config/database.php.
+              </p>
+              <p>The config settings are stored in a multi-dimensional array with this
+                prototype:</p>
+              <div class="highlight-ci">
+                <div class="highlight">
+                  <pre><span></span><span class="nv">$db</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;database&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;database_name&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;driver&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;mysqli&#39;</span><span class="p">,</span>
+<span class="p">);</span>
+</pre>
+                </div>
+              </div>
+              
+              <p>The reason we use a multi-dimensional array rather than a more simple
+                one is to permit you to optionally store multiple sets of connection
+                values. If, for example, you run multiple environments (development,
+                production, test, etc.) under a single installation, you can set up a
+                connection group for each, then switch between groups as needed. For
+                example, to set up a “test” environment you would do this:</p>
+              <div class="highlight-ci">
+                <div class="highlight">
+                  <pre><span></span><span class="nv">$db</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;database&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;database_name&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;driver&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;mysqli&#39;</span><span class="p">,</span>
+<span class="p">);</span>
+</pre>
+                </div>
+              </div>
+              
+              <div class="admonition note">
+                <p class="first admonition-title">Note</p>
+                <p class="last">The name ‘test’ is arbitrary. It can be anything you want. By
+                  default we’ve used the word “default” for the primary connection,
+                  but it too can be renamed to something more relevant to your project.</p>
+              </div>
+              
+              <div class="section" id="explanation-of-values">
+                <h2>Explanation of Values:<a class="headerlink" href="#explanation-of-values"
+                    title="Permalink to this headline">¶</a></h2>
+                <table border="1" class="docutils">
+                  <colgroup>
+                    <col width="17%" />
+                    <col width="83%" />
+                  </colgroup>
+                  <thead valign="bottom">
+                    <tr class="row-odd">
+                      <th class="head">Name Config</th>
+                      <th class="head">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody valign="top">
+                    <tr class="row-odd">
+                      <td><strong>hostname</strong></td>
+                      <td>The hostname of your database server. Often this is ‘localhost’.</td>
+                    </tr>
+                    <tr class="row-even">
+                      <td><strong>username</strong></td>
+                      <td>The username used to connect to the database.</td>
+                    </tr>
+                    <tr class="row-odd">
+                      <td><strong>password</strong></td>
+                      <td>The password used to connect to the database.</td>
+                    </tr>
+                    <tr class="row-even">
+                      <td><strong>database</strong></td>
+                      <td>The name of the database you want to connect to.</td>
+                    </tr>
+                    <tr class="row-odd">
+                      <td><strong>driver</strong></td>
+                      <td>The database type. ie: mysqli, postgre, odbc, etc. Must be specified in lower case.</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="admonition note">
+                  <p class="first admonition-title">Note</p>
+                  <p class="last">Depending on what database platform you are using (MySQL, PostgreSQL,
+                    etc.) not all values will be needed. For example, when using SQLite you
+                    will not need to supply a username or password, and the database name
+                    will be the path to your database file. The information above assumes
+                    you are using MySQL.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <footer>
+            <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+              <a href="connecting.html" class="btn btn-neutral float-right" title="Connecting to your Database">Next
+                <span class="fa fa-arrow-circle-right"></span></a>
+
+              <a href="examples.html" class="btn btn-neutral" title="Database Quick Start: Example Code"><span
+                  class="fa fa-arrow-circle-left"></span> Previous</a>
+            </div>
+            <hr />
+
+            <div role="contentinfo">
+              <p>&copy; Copyright 2020 Codingox.</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT: './',
+      VERSION: '1.0',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE: false
+    };
+  </script>
+
+  <script type="text/javascript" src="../assets/jquery.js"></script>
+  <script type="text/javascript" src="../assets/underscore.js"></script>
+  <script type="text/javascript" src="../assets/doctools.js"></script>
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+    jQuery(function () {
+      SphinxRtdTheme.StickyNav.enable();
+    });
+  </script>
+
+</body>
+
+</html>

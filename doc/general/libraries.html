@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Codingox | Libraries</title>
+  <!-- <link rel="shortcut icon" href="" /> -->
+  <link rel="stylesheet" href="../assets/css/webtheme.css" type="text/css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Codingox</a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome to Codingox</a></li>
+          <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation
+              Instructions</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Codingox Overview</a>
+          </li>
+        </ul>
+        <ul class="current">
+          <li class="toctree-l1 current"><a class="reference internal" href="index.html">General Topics</a>
+            <ul class="current">
+              <li class="toctree-l2"><a class="reference internal" href="urls.html">URLs</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="controllers.html">Controllers</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="helpers.html">Helpers</a></li>
+              <li class="toctree-l2 current"><a class="current reference internal"
+                  href="javascript:void(0)">Libraries</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="creating_libraries.html">Creating Libraries</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="routing.html">URI Routing</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../database/index.html">Database</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../libraries/index.html">Libraries</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../helpers/index.html">Helpers</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Codingox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ul class="wy-breadcrumbs">
+              <li><a href="../index.html">Docs</a>&raquo;</li>
+
+              <li><a href="index.html">General Topics</a>&raquo;</li>
+
+              <li>Using Codingox Libraries</li>
+            </ul>
+            <hr />
+          </div>
+
+          <div role="main" class="document">
+            <div class="section" id="using-Codingox-libraries">
+              <h1>Using Codingox Libraries<a class="headerlink" href="#using-Codingox-libraries"
+                  title="Permalink to this headline">¶</a></h1>
+              <p>All of the available libraries are located in your <em>libraries/</em>
+                directory. In most cases, to use one of these classes involves initializing
+                it within a <a class="reference internal" href="controllers.html"><span
+                    class="doc">controller</span></a>
+                using the following
+                initialization method:</p>
+              <div class="highlight-ci">
+                <div class="highlight">
+                  <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">library</span><span class="p">(</span><span class="s1">&#39;file_name&#39;</span><span class="p">);</span></pre>
+                </div>
+              </div>
+              <p>Where ‘file_name’ is the name of the file you want to invoke. For
+                example, to load the <a class="reference internal" href="../libraries/form_validation.html"><span
+                    class="doc">Form Validation Library</span></a> you would do this:</p>
+              <div class="highlight-ci">
+                <div class="highlight">
+                  <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">library</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">);</span></pre>
+                </div>
+              </div>
+              <p>Once initialized you can use it as indicated in the user guide page
+                corresponding to that class.</p>
+              <p>Additionally, multiple libraries can be loaded at the same time by
+                passing file name of libraries to the method.</p>
+              <p>Example:</p>
+              <div class="highlight-ci">
+                <div class="highlight">
+                  <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">library</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="s1">&#39;media&#39;</span><span class="p">);</span></pre>
+                </div>
+              </div>
+              <div class="section" id="creating-your-own-libraries">
+                <h2>Creating Your Own Libraries<a class="headerlink" href="#creating-your-own-libraries"
+                    title="Permalink to this headline">¶</a></h2>
+                <p>Please read the section of the user guide that discusses how to
+                  <a class="reference internal" href="creating_libraries.html"><span class="doc">create your own
+                      libraries</span></a>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <footer>
+            <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+              <a href="creating_libraries.html" class="btn btn-neutral float-right" title="Creating Libraries">Next
+                <span class="fa fa-arrow-circle-right"></span></a>
+
+              <a href="helpers.html" class="btn btn-neutral" title="Helper Functions"><span
+                  class="fa fa-arrow-circle-left"></span> Previous</a>
+            </div>
+            <hr />
+
+            <div role="contentinfo">
+              <p>&copy; Copyright 2020 Codingox.</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT: './',
+      VERSION: '1.0',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE: false
+    };
+  </script>
+
+  <script type="text/javascript" src="../assets/jquery.js"></script>
+  <script type="text/javascript" src="../assets/underscore.js"></script>
+  <script type="text/javascript" src="../assets/doctools.js"></script>
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+    jQuery(function () {
+      SphinxRtdTheme.StickyNav.enable();
+    });
+  </script>
+
+</body>
+
+</html>

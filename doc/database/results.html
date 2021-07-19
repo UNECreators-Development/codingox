@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Codingox | Query Results</title>
+  <!-- <link rel="shortcut icon" href="" /> -->
+  <link rel="stylesheet" href="../assets/css/webtheme.css" type="text/css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Codingox</a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="../general/welcome.html">Welcome to Codingox</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation
+              Instructions</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Codingox Overview</a>
+          </li>
+        </ul>
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a>
+          </li>
+        </ul>
+        <ul class="current">
+          <li class="toctree-l1 current"><a class="reference internal" href="index.html">Database</a>
+            <ul class="current">
+              <li class="toctree-l2"><a class="reference internal" href="examples.html">Quick Start</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="connecting.html">Database Connection</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="queries.html">Running Queries</a></li>
+              <li class="toctree-l2 current"><a class="current reference internal" href="javascript:void(0)">Query
+                  Results</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="query_builder.html">Query Builder Class</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Libraries</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Codingox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ul class="wy-breadcrumbs">
+              <li><a href="../index.html">Docs</a>&raquo;</li>
+
+              <li><a href="index.html">Database Reference</a>&raquo;</li>
+
+              <li>Generating Query Results</li>
+            </ul>
+            <hr />
+          </div>
+
+          <div role="main" class="document">
+            <div class="section" id="generating-query-results">
+              <h1>Generating Query Results<a class="headerlink" href="#generating-query-results"
+                  title="Permalink to this headline">¶</a></h1>
+              <p>There are several ways to generate query results:</p>
+              <div class="contents local topic" id="contents">
+                <ul class="simple">
+                  <li><a class="reference internal" href="#result-arrays" id="id1">Result Arrays</a></li>
+                  <li><a class="reference internal" href="#result-rows" id="id2">Result Rows</a></li>
+                  <li><a class="reference internal" href="#result-helper-methods" id="id4">Result Helper Methods</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="section" id="result-arrays">
+                <h2><a class="toc-backref" href="#id1">Result Arrays</a><a class="headerlink" href="#result-arrays"
+                    title="Permalink to this headline">¶</a></h2>
+          
+                <p><strong>findAll()</strong></p>
+                <p>This method returns the query result as a pure array, or an empty
+                  array when no result is produced. Typically you’ll use this in a foreach
+                  loop, like this:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">findAll</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">];</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">];</span>
+<span class="p">}</span>
+</pre>
+                  </div>
+                </div>
+              </div>
+              <div class="section" id="result-rows">
+                <p><strong>findOne()</strong></p>
+                <p>This method returns an associative single array, or an empty
+                  array when no result is produced.
+                  Example:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+
+<span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">findOne</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$row</span><span class="p">))</span>
+<span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">];</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">];</span>
+<span class="p">}</span>
+</pre>
+                  </div>
+                </div>
+                <p><strong>findRow()</strong></p>
+                <p>This method returns an array, or an empty
+                  array when no result is produced.
+                  Example:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+
+<span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">findRow</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$row</span><span class="p">))</span>
+<span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">];</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">];</span>
+<span class="p">}</span>
+</pre>
+                  </div>
+                </div>
+                <p><strong>findObject()</strong></p>
+                <p>This method returns an array object, or an empty
+                  array when no result is produced.
+                  Example:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;YOUR QUERY&quot;</span><span class="p">);</span>
+
+<span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">findObject</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$row</span><span class="p">))</span>
+<span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="s1">title</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="s1">name</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="s1">body</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="section" id="result-helper-methods">
+                <h2><a class="toc-backref" href="#id4">Result Helper Methods</a><a class="headerlink"
+                    href="#result-helper-methods" title="Permalink to this headline">¶</a></h2>
+                <p><strong>count()</strong></p>
+                <p>The number of rows returned by the query. Note: In this example, $query
+                  is the variable that the query result object is assigned to:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM my_table&#39;</span><span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">();</span>
+</pre>
+                  </div>
+                </div>
+                <div class="admonition note">
+                  <p class="first admonition-title">Note</p>
+                  <p class="last">Not all database drivers have a native way of getting the total
+                    number of rows for a result set. When this is the case, all of
+                    the data is prefetched and <code class="docutils literal"><span class="pre">count()</span></code> is
+                    manually called on the
+                    resulting array in order to achieve the same result.</p>
+                </div>
+                <p><strong>field_count()</strong></p>
+                <p>The number of FIELDS (columns) returned by the query.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM my_table&#39;</span><span class="p">);</span>
+
+<span class="k">echo</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">field_count</span><span class="p">();</span>
+</pre>
+                  </div>
+                </div>
+                
+                <p><strong>offset()</strong></p>
+                <p>This method sets the internal pointer for the next result row to be
+                  fetched.</p>
+                <p>It accepts a positive integer value, which defaults to 0 and returns
+                  TRUE on success or FALSE on failure.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;SELECT `field_name` FROM `table_name`&#39;</span><span class="p">);</span>
+<span class="nv">$query</span><span class="o">-&gt;</span><span class="na">offset</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">// Skip the first 5 rows</span>
+<span class="nv">$row</span> <span class="o">=</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">findRow</span><span class="p">();</span>
+</pre>
+                  </div>
+                </div>
+                <div class="admonition note">
+                  <p class="first admonition-title">Note</p>
+                  <p class="last">Not all database drivers support this feature and will return FALSE.
+                    Most notably - you won’t be able to use it with PDO.</p>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          <footer>
+            <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+              <a href="query_builder.html" class="btn btn-neutral float-right" title="Query Builder Class">Next <span
+                  class="fa fa-arrow-circle-right"></span></a>
+
+              <a href="queries.html" class="btn btn-neutral" title="Queries"><span
+                  class="fa fa-arrow-circle-left"></span> Previous</a>
+            </div>
+            <hr />
+
+            <div role="contentinfo">
+              <p>&copy; Copyright 2020 Codingox.</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT: './',
+      VERSION: '1.0',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE: false
+    };
+  </script>
+
+  <script type="text/javascript" src="../assets/jquery.js"></script>
+  <script type="text/javascript" src="../assets/underscore.js"></script>
+  <script type="text/javascript" src="../assets/doctools.js"></script>
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+    jQuery(function () {
+      SphinxRtdTheme.StickyNav.enable();
+    });
+  </script>
+
+</body>
+
+</html>

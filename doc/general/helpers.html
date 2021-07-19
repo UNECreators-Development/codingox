@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Codingox | Helpers</title>
+  <!-- <link rel="shortcut icon" href="" /> -->
+  <link rel="stylesheet" href="../assets/css/webtheme.css" type="text/css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Codingox</a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome to Codingox</a></li>
+          <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation
+              Instructions</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Codingox Overview</a>
+          </li>
+        </ul>
+        <ul class="current">
+          <li class="toctree-l1 current"><a class="reference internal" href="index.html">General Topics</a>
+            <ul class="current">
+              <li class="toctree-l2"><a class="reference internal" href="urls.html">URLs</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="controllers.html">Controllers</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="views.html">Views</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
+              <li class="toctree-l2 current"><a class="current reference internal" href="javascript:void(0)">Helpers</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="libraries.html">Libraries</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="creating_libraries.html">Creating Libraries</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="routing.html">URI Routing</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="errors.html">Error Handling</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../database/index.html">Database</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../libraries/index.html">Libraries</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../helpers/index.html">Helpers</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Codingox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ul class="wy-breadcrumbs">
+              <li><a href="../index.html">Docs</a>&raquo;</li>
+
+              <li><a href="index.html">General Topics</a>&raquo;</li>
+
+              <li>Helper Functions</li>
+            </ul>
+            <hr />
+          </div>
+
+          <div role="main" class="document">
+            <div class="section" id="helper-functions">
+              <h1>Helper Functions<a class="headerlink" href="#helper-functions"
+                  title="Permalink to this headline">¶</a>
+              </h1>
+              <p>Helpers, as the name suggests, help you with tasks. Each helper file is
+                simply a collection of functions in a particular category. There are <strong>URL
+                  Helpers</strong>, that assist in creating links, there are <strong>Form Helpers</strong> that help
+                you create form elements, <strong>File Helpers</strong> help you
+                deal with files, etc.</p>
+              <p>Unlike most other systems in Codingox, Helpers are not written in an
+                Object Oriented format. They are simple, procedural functions. Each
+                helper function performs one specific task, with no dependence on other
+                functions.</p>
+              <p>Codingox does not load Helper Files by default, so the first step in
+                using a Helper is to load it. Once loaded, it becomes globally available
+                in your <a class="reference internal" href="controllers.html"><span class="doc">controller</span></a>
+                and
+                <a class="reference internal" href="views.html"><span class="doc">views</span></a>.
+              </p>
+            
+              <div class="section" id="loading-a-helper">
+                <h2>Loading a Helper<a class="headerlink" href="#loading-a-helper"
+                    title="Permalink to this headline">¶</a></h2>
+                <p>Loading a helper file is quite simple using the following method:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">helper</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+</pre>
+                  </div>
+                </div>
+                <p>Where <strong>name</strong> is the file name of the helper, without the .php file
+                  extension.</p>
+                <p>For example, to load the <strong>URL Helper</strong> file, which is named
+                  <strong>url.php</strong>, you would do this:
+                </p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">helper</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">);</span>
+</pre>
+                  </div>
+                </div>
+                <p>A helper can be loaded anywhere within your controller methods (or
+                  even within your View files, although that’s not a good practice), as
+                  long as you load it before you use it. You can load your helpers in your
+                  controller constructor so that they become available automatically in
+                  any function, or you can load a helper in a specific function that needs
+                  it.</p>
+                <div class="admonition note">
+                  <p class="first admonition-title">Note</p>
+                  <p class="last">The Helper loading method above does not return a value, so
+                    don’t try to assign it to a variable. Just use it as shown.</p>
+                </div>
+              </div>
+              <div class="section" id="loading-multiple-helpers">
+                <h2>Loading Multiple Helpers<a class="headerlink" href="#loading-multiple-helpers"
+                    title="Permalink to this headline">¶</a></h2>
+                <p>If you need to load more than one helper you can specify them in an
+                  array, like this:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">helper</span><span class="p">(</span><span class="s1">&#39;helper1&#39;</span><span class="p">,</span> <span class="s1">&#39;helper2&#39;</span><span class="p">,</span> <span class="s1">&#39;helper3&#39;</span><span class="p">);</span></pre>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="section" id="using-a-helper">
+                <h2>Using a Helper<a class="headerlink" href="#using-a-helper" title="Permalink to this headline">¶</a>
+                </h2>
+                <p>Once you’ve loaded the Helper File containing the function you intend to
+                  use, you’ll call it the way you would a standard PHP function.</p>
+                <p>For example, to create a link using the <code
+                    class="docutils literal"><span class="pre">a_href()</span></code> function in one of
+                  your view files you would do this:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="o">&lt;?</span><span class="nx">=</span> <span class="nx">a_href</span><span class="p">(</span><span class="s1">&#39;blog/comments&#39;</span><span class="p">,</span> <span class="s1">&#39;Click Here&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</pre>
+                  </div>
+                </div>
+                <p>Where “Click Here” is the name of the link, and “blog/comments” is the
+                  URI to the controller/method you wish to link to.</p>
+              </div>
+            </div>
+          </div>
+
+          <footer>
+            <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+              <a href="libraries.html" class="btn btn-neutral float-right" title="Using Codingox Libraries">Next
+                <span class="fa fa-arrow-circle-right"></span></a>
+
+              <a href="models.html" class="btn btn-neutral" title="Models"><span class="fa fa-arrow-circle-left"></span>
+                Previous</a>
+            </div>
+            <hr />
+
+            <div role="contentinfo">
+              <p>&copy; Copyright 2020 Codingox.</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT: './',
+      VERSION: '1.0',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE: false
+    };
+  </script>
+
+  <script type="text/javascript" src="../assets/jquery.js"></script>
+  <script type="text/javascript" src="../assets/underscore.js"></script>
+  <script type="text/javascript" src="../assets/doctools.js"></script>
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+    jQuery(function () {
+      SphinxRtdTheme.StickyNav.enable();
+    });
+  </script>
+
+</body>
+
+</html>

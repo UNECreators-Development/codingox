@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Codingox | Database Connection</title>
+  <!-- <link rel="shortcut icon" href="" /> -->
+  <link rel="stylesheet" href="../assets/css/webtheme.css" type="text/css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Codingox</a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="../general/welcome.html">Welcome to Codingox</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation
+              Instructions</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Codingox Overview</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a>
+          </li>
+        </ul>
+        <ul class="current">
+          <li class="toctree-l1 current"><a class="reference internal" href="index.html">Database</a>
+            <ul class="current">
+              <li class="toctree-l2"><a class="reference internal" href="examples.html">Quick Start</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a>
+              </li>
+              <li class="toctree-l2 current"><a class="current reference internal" href="javascript:void(0)">Database
+                  Connection</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="queries.html">Running Queries</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="results.html">Query Results</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="query_builder.html">Query Builder Class</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Libraries</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Codingox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ul class="wy-breadcrumbs">
+              <li><a href="../index.html">Docs</a>&raquo;</li>
+
+              <li><a href="index.html">Database Reference</a>&raquo;</li>
+
+              <li>Connecting to your Database</li>
+            </ul>
+            <hr />
+          </div>
+
+          <div role="main" class="document">
+            <div class="section" id="connecting-to-your-database">
+              <div class="section" id="manually-connecting">
+                <h2>Connecting to your Database<a class="headerlink" href="#manually-connecting"
+                    title="Permalink to this headline">¶</a></h2>
+                <p>If only some of your pages require database connectivity you can
+                  manually connect to your database by adding this line of code in any
+                  function where it is needed, or in your class constructor to make the
+                  database available globally in that class.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">database</span><span class="p">();</span></pre>
+                  </div>
+                </div>
+                <p>If the above function does <strong>not</strong> contain any information in the first
+                  parameter it will connect to the group specified in your database config
+                  file. For most people, this is the preferred method of use.</p>
+                
+                <div class="section" id="manually-connecting-to-a-database">
+                  <h3>Manually Connecting to a Database<a class="headerlink" href="#manually-connecting-to-a-database"
+                      title="Permalink to this headline">¶</a></h3>
+                  <p>To choose a specific group from your config file you can do this:</p>
+                  <div class="highlight-ci">
+                    <div class="highlight">
+                      <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">database</span><span class="p">(</span><span class="s1">&#39;group_name&#39;</span><span class="p">);</span></pre>
+                    </div>
+                  </div>
+                  <p>Where group_name is the name of the connection group from your config
+                    file.</p>
+                  <p>To connect manually to a desired database you can pass an array of
+                    values:</p>
+                  <div class="highlight-ci">
+                    <div class="highlight">
+                      <pre><span></span><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;hostname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;localhost&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;myusername&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;mypassword&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;database&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;mydatabase&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;driver&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="s1">&#39;mysqli&#39;</span><span class="p">;</span>
+
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">database</span><span class="p">(</span><span class="nv">$config</span><span class="p">);</span>
+</pre>
+                    </div>
+                  </div>
+                  <p>For information on each of these values please see the <a class="reference internal"
+                      href="configuration.html"><span class="doc">configuration
+                        page</span></a>.</p>
+                </div>
+              </div>
+              <div class="section" id="connecting-to-multiple-databases">
+                <h2>Connecting to Multiple Databases<a class="headerlink" href="#connecting-to-multiple-databases"
+                    title="Permalink to this headline">¶</a></h2>
+                <p>If you need to connect to more than one database simultaneously you can
+                  do so as follows:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">database</span><span class="p">(</span><span class="s1">&#39;group_one&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">database</span><span class="p">(</span><span class="s1">&#39;group_two&#39;</span><span class="p">);</span>
+</pre>
+                  </div>
+                </div>
+                <p>Note: Change the words “group_one” and “group_two” to the specific
+                  group names you are connecting to (or you can pass the connection values
+                  as indicated above).</p>
+              </div>
+              <div class="section" id="reconnecting-keeping-the-connection-alive">
+                <h2>Reconnecting / Keeping the Connection Alive<a class="headerlink"
+                    href="#reconnecting-keeping-the-connection-alive" title="Permalink to this headline">¶</a></h2>
+                <p>If the database server’s idle timeout is exceeded while you’re doing
+                  some heavy PHP lifting (processing an image, for instance), you should
+                  consider pinging the server by using the reconnect() method before
+                  sending further queries, which can gracefully keep the connection alive
+                  or re-establish it.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">reconnect</span><span class="p">();</span></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="section" id="manually-closing-the-connection">
+                <h2>Manually closing the Connection<a class="headerlink" href="#manually-closing-the-connection"
+                    title="Permalink to this headline">¶</a></h2>
+                <p>While Codingox intelligently takes care of closing your database
+                  connections, you can explicitly close the connection.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <footer>
+            <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+              <a href="queries.html" class="btn btn-neutral float-right" title="Queries">Next <span
+                  class="fa fa-arrow-circle-right"></span></a>
+
+              <a href="configuration.html" class="btn btn-neutral" title="Database Configuration"><span
+                  class="fa fa-arrow-circle-left"></span> Previous</a>
+            </div>
+            <hr />
+
+            <div role="contentinfo">
+              <p>&copy; Copyright 2020 Codingox.</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT: './',
+      VERSION: '1.0',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE: false
+    };
+  </script>
+
+  <script type="text/javascript" src="../assets/jquery.js"></script>
+  <script type="text/javascript" src="../assets/underscore.js"></script>
+  <script type="text/javascript" src="../assets/doctools.js"></script>
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+    jQuery(function () {
+      SphinxRtdTheme.StickyNav.enable();
+    });
+  </script>
+
+</body>
+
+</html>

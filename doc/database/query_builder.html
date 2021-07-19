@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Codingox | Query Builder Class</title>
+  <!-- <link rel="shortcut icon" href="" /> -->
+  <link rel="stylesheet" href="../assets/css/webtheme.css" type="text/css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Codingox</a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="../general/welcome.html">Welcome to Codingox</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation
+              Instructions</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Codingox Overview</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a>
+          </li>
+        </ul>
+        <ul class="current">
+          <li class="toctree-l1 current"><a class="reference internal" href="index.html">Database</a>
+            <ul class="current">
+              <li class="toctree-l2"><a class="reference internal" href="examples.html">Quick Start</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="connecting.html">Database Connection</a>
+              </li>
+              <li class="toctree-l2"><a class="reference internal" href="queries.html">Running Queries</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="results.html">Query Results</a></li>
+              <li class="toctree-l2 current"><a class="current reference internal" href="javascript:void(0)">Query
+                  Builder Class</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Libraries</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../helpers/index.html">Helpers</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Codingox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ul class="wy-breadcrumbs">
+              <li><a href="../index.html">Docs</a>&raquo;</li>
+
+              <li><a href="index.html">Database Reference</a>&raquo;</li>
+
+              <li>Query Builder Class</li>
+            </ul>
+            <hr />
+          </div>
+
+          <div role="main" class="document">
+            <div class="section" id="query-builder-class">
+              <h1>Query Builder Class<a class="headerlink" href="#query-builder-class"
+                  title="Permalink to this headline">¶</a></h1>
+              <p>Codingox gives you access to a Query Builder class. This pattern
+                allows information to be retrieved, inserted, and updated in your
+                database with minimal scripting. In some cases only one or two lines
+                of code are necessary to perform a database action.
+                Codingox does not require that each database table be its own class
+                file. It instead provides a more simplified interface.</p>
+
+              <div class="contents local topic" id="contents">
+                <ul class="simple">
+                  <li><a class="reference internal" href="#selecting-data" id="id1">Selecting Data</a></li>
+                  <li><a class="reference internal" href="#looking-for-specific-data" id="id2">Looking for Specific
+                      Data</a></li>
+                  <li><a class="reference internal" href="#looking-for-similar-data" id="id3">Looking for Similar
+                      Data</a></li>
+                  <li><a class="reference internal" href="#ordering-results" id="id4">Ordering results</a></li>
+                  <li><a class="reference internal" href="#limiting-or-counting-results" id="id5">Limiting or Counting
+                      Results</a></li>
+                  <li><a class="reference internal" href="#query-grouping" id="id6">Query grouping</a></li>
+                  <li><a class="reference internal" href="#inserting-data" id="id7">Inserting Data</a></li>
+                  <li><a class="reference internal" href="#updating-data" id="id8">Updating Data</a></li>
+                  <li><a class="reference internal" href="#deleting-data" id="id9">Deleting Data</a></li>
+                  </li>
+                  <li><a class="reference internal" href="#class-reference" id="id13">Class Reference</a></li>
+                </ul>
+              </div>
+              <div class="section" id="selecting-data">
+                <h2><a class="toc-backref" href="#id1">Selecting Data</a><a class="headerlink" href="#selecting-data"
+                    title="Permalink to this headline">¶</a></h2>
+                <p>The following functions allow you to build SQL <strong>SELECT</strong> statements.</p>
+                <p><strong>$this-&gt;db-&gt;get()</strong></p>
+                <p>Runs the selection query and returns the result. Can be used by itself
+                  to retrieve all records from a table:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span>  <span class="c1">// Produces: SELECT * FROM mytable</span></pre>
+                  </div>
+                </div>
+
+                <p>You’ll notice that the above function is assigned to a variable named
+                  $query, which can be used to show the results:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">findAll</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$row</span><span class="">[</span><span class="s1">&#39;title&#39;</span><span class="p">];</span>
+<span class="p">}</span>
+</pre>
+                  </div>
+                </div>
+                <p>Please visit the <a class="reference internal" href="results.html"><span class="doc">result
+                      functions</span></a> page for a full
+                  discussion regarding result generation.</p>
+
+                <p><strong>$this-&gt;db-&gt;get_where()</strong></p>
+                <p>Identical to the above function except that it permits you to add a
+                  “where” clause in the second parameter, instead of using the db-&gt;where()
+                  function:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get_where</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">)</span><span class="p">);</span>
+</pre>
+                  </div>
+                </div>
+                <p>Please read the about the where function below for more information.</p>
+
+                <p><strong>$this-&gt;db-&gt;select()</strong></p>
+                <p>Permits you to write the SELECT portion of your query:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;title, content, date&#39;</span><span class="p">);</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span>
+
+<span class="c1">// Executes: SELECT title, content, date FROM mytable</span>
+</pre>
+                  </div>
+                </div>
+                <div class="admonition note">
+                  <p class="first admonition-title">Note</p>
+                  <p class="last">If you are selecting all (*) from a table you do not need to
+                    use this function. When omitted, Codingox assumes that you wish
+                    to select all fields and automatically adds ‘SELECT *’.</p>
+                </div>
+
+                <p><strong>$this-&gt;db-&gt;selectMax()</strong></p>
+                <p>Writes a <code
+                    class="docutils literal"><span class="pre">SELECT</span> <span class="pre">MAX(field)</span></code>
+                  portion for your query. You can optionally
+                  include a second parameter to rename the resulting field.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">selectMax</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;members&#39;</span><span class="p">);</span>  <span class="c1">// Produces: SELECT MAX(age) as age FROM members</span>
+
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">selectMax</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;member_age&#39;</span><span class="p">);</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;members&#39;</span><span class="p">);</span> <span class="c1">// Produces: SELECT MAX(age) as member_age FROM members</span>
+</pre>
+                  </div>
+                </div>
+                <p><strong>$this-&gt;db-&gt;selectMin()</strong></p>
+                <p>Writes a “SELECT MIN(field)” portion for your query. As with
+                  select_max(), You can optionally include a second parameter to rename
+                  the resulting field.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">selectMin</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;members&#39;</span><span class="p">);</span> <span class="c1">// Produces: SELECT MIN(age) as age FROM members</span>
+</pre>
+                  </div>
+                </div>
+                <p><strong>$this-&gt;db-&gt;selectAvg()</strong></p>
+                <p>Writes a “SELECT AVG(field)” portion for your query. As with
+                  select_max(), You can optionally include a second parameter to rename
+                  the resulting field.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">selectAvg</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;members&#39;</span><span class="p">);</span> <span class="c1">// Produces: SELECT AVG(age) as age FROM members</span>
+</pre>
+                  </div>
+                </div>
+                <p><strong>$this-&gt;db-&gt;selectSum()</strong></p>
+                <p>Writes a “SELECT SUM(field)” portion for your query. As with
+                  select_max(), You can optionally include a second parameter to rename
+                  the resulting field.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">selectSum</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">);</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;members&#39;</span><span class="p">);</span> <span class="c1">// Produces: SELECT SUM(age) as age FROM members</span>
+</pre>
+                  </div>
+                </div>
+                <p><strong>$this-&gt;db-&gt;from()</strong></p>
+                <p>Permits you to write the FROM portion of your query:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;title, content, date&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>  <span class="c1">// Produces: SELECT title, content, date FROM mytable</span>
+</pre>
+                  </div>
+                </div>
+                <div class="admonition note">
+                  <p class="first admonition-title">Note</p>
+                  <p class="last">As shown earlier, the FROM portion of your query can be specified
+                    in the $this-&gt;db-&gt;get() function, so use whichever method you prefer.</p>
+                </div>
+                <p><strong>$this-&gt;db-&gt;join()</strong></p>
+                <p>Permits you to write the JOIN portion of your query:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;blogs&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">join</span><span class="p">(</span><span class="s1">&#39;comments&#39;</span><span class="p">,</span> <span class="s1">&#39;comments.id = blogs.id&#39;</span><span class="p">);</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+
+<span class="c1">// Produces:</span>
+<span class="c1">// SELECT * FROM blogs JOIN comments ON comments.id = blogs.id</span>
+</pre>
+                  </div>
+                </div>
+              </div>
+              <div class="section" id="looking-for-specific-data">
+                <h2><a class="toc-backref" href="#id2">Looking for Specific Data</a><a class="headerlink"
+                    href="#looking-for-specific-data" title="Permalink to this headline">¶</a></h2>
+                <p><strong>$this-&gt;db-&gt;where()</strong></p>
+                <p>This function enables you to set <strong>WHERE</strong> clauses using one of four
+                  methods:</p>
+                <div class="admonition note">
+                  <p class="first admonition-title">Note</p>
+                  <p class="last">All values passed to this function are escaped automatically,
+                    producing safer queries.</p>
+                </div>
+                <ol class="arabic">
+                  <li>
+                    <p class="first"><strong>Simple key/value method:</strong></p>
+                    <blockquote>
+                      <div>
+                        <div class="highlight-ci">
+                          <div class="highlight">
+                            <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span> <span class="c1">// Produces: WHERE name = &#39;Joe&#39;</span></pre>
+                          </div>
+                        </div>
+                        <p>Notice that the equal sign is added for you.</p>
+                        <p>If you use multiple function calls they will be chained together with
+                          AND between them:</p>
+                        <div class="highlight-ci">
+                          <div class="highlight">
+                            <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$name</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="nv">$title</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="nv">$status</span><span class="p">);</span>
+<span class="c1">// WHERE name = &#39;Joe&#39; AND title = &#39;boss&#39; AND status = &#39;active&#39;</span>
+</pre>
+                          </div>
+                        </div>
+                      </div>
+                    </blockquote>
+                  </li>
+                  <li>
+                    <p class="first"><strong>Custom key/value method:</strong></p>
+                    <blockquote>
+                      <div>
+                        <p>You can include an operator in the first parameter in order to
+                          control the comparison:</p>
+                        <div class="highlight-ci">
+                          <div class="highlight">
+                            <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name != <span class="nv">$name</span>&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">andWhere</span><span class="p">(</span><span class="s1">&#39;id &lt; <span class="nv">$id</span>&#39;</span><span class="p">);</span> <span class="c1">// Produces: WHERE name != &#39;Joe&#39; AND id &lt; 45</span>
+</pre>
+                          </div>
+                        </div>
+                      </div>
+                    </blockquote>
+                  </li>
+                  <li>
+                    <p class="first"><strong>Associative array method:</strong></p>
+                    <blockquote>
+                      <div>
+                        <div class="highlight-ci">
+                          <div class="highlight">
+                            <pre><span></span><span class="nv">$array</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span> <span class="o">=&gt;</span> <span class="nv">$status</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="nv">$array</span><span class="p">);</span>
+<span class="c1">// Produces: WHERE name = &#39;Joe&#39; AND title = &#39;boss&#39; AND status = &#39;active&#39;</span>
+</pre>
+                          </div>
+                        </div>
+                      </div>
+                    </blockquote>
+                  </li>
+                  <li>
+                    <dl class="first docutils">
+                      <dt><strong>Custom string:</strong></dt>
+                      <dd>
+                        <p class="first">You can write your own clauses manually:</p>
+                        <div class="last highlight-ci">
+                          <div class="highlight">
+                            <pre><span></span><span class="nv">$where</span> <span class="o">=</span> <span class="s2">&quot;name=&#39;Joe&#39; AND status=&#39;boss&#39; OR status=&#39;active&#39;&quot;</span><span class="p">;</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="nv">$where</span><span class="p">);</span>
+</pre>
+                          </div>
+                        </div>
+                      </dd>
+                    </dl>
+                  </li>
+                </ol>
+
+                <p><strong>$this-&gt;db-&gt;orWhere()</strong></p>
+                <p>This function is identical to the one above, except that multiple
+                  instances are joined by OR:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name != <span class="nv">$name</span>&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">orWhere</span><span class="p">(</span><span class="s1">&#39;id &gt; <span class="nv">$id</span>&#39;</span><span class="p">);</span>  <span class="c1">// Produces: WHERE name != &#39;Joe&#39; OR id &gt; 50</span>
+</pre>
+                  </div>
+                </div>
+              </div>
+              <div class="section" id="looking-for-similar-data">
+                <h2><a class="toc-backref" href="#id3">Looking for Similar Data</a><a class="headerlink"
+                    href="#looking-for-similar-data" title="Permalink to this headline">¶</a></h2>
+                <p><strong>$this-&gt;db-&gt;like()</strong></p>
+                <p>This method enables you to generate <strong>LIKE</strong> clauses, useful for doing
+                  searches.</p>
+                <div class="admonition note">
+                  <p class="first admonition-title">Note</p>
+                  <p class="last">All values passed to this method are escaped automatically.</p>
+                </div>
+                <ol class="arabic">
+                  <li>
+                    <p class="first"><strong>Simple key/value method:</strong></p>
+                    <blockquote>
+                      <div>
+                        <div class="highlight-ci">
+                          <div class="highlight">
+                            <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
+<span class="c1">// Produces: WHERE `title` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39;</span>
+</pre>
+                          </div>
+                        </div>
+                        <p>If you use multiple method calls they will be chained together with
+                          AND between them:</p>
+                        <div class="highlight-ci">
+                          <div class="highlight">
+                            <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
+<span class="c1">// WHERE `title` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39; AND  `body` LIKE &#39;%match% ESCAPE &#39;!&#39;</span>
+</pre>
+                          </div>
+                        </div>
+                      </div>
+                    </blockquote>
+                  </li>
+                  <li>
+                    <p class="first"><strong>Associative array method:</strong></p>
+                    <blockquote>
+                      <div>
+                        <div class="highlight-ci">
+                          <div class="highlight">
+                            <pre><span></span><span class="nv">$array</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$match</span><span class="p">,</span> <span class="s1">&#39;page1&#39;</span> <span class="o">=&gt;</span> <span class="nv">$match</span><span class="p">,</span> <span class="s1">&#39;page2&#39;</span> <span class="o">=&gt;</span> <span class="nv">$match</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="nv">$array</span><span class="p">);</span>
+<span class="c1">// WHERE `title` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39; AND  `page1` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39; AND  `page2` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39;</span>
+</pre>
+                          </div>
+                        </div>
+                      </div>
+                    </blockquote>
+                  </li>
+                </ol>
+                <p><strong>$this-&gt;db-&gt;orLike()</strong></p>
+                <p>This method is identical to the one above, except that multiple
+                  instances are joined by OR:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">orLike</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="nv">$match</span><span class="p">);</span>
+<span class="c1">// WHERE `title` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39; OR  `body` LIKE &#39;%match%&#39; ESCAPE &#39;!&#39;</span>
+</pre>
+                  </div>
+                </div>
+                <p><strong>$this-&gt;db-&gt;notLike()</strong></p>
+                <p>This method is identical to <code class="docutils literal"><span class="pre">like()</span></code>,
+                  except that it generates
+                  NOT LIKE statements:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">notLike</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>  <span class="c1">// WHERE `title` NOT LIKE &#39;%match% ESCAPE &#39;!&#39;</span>
+</pre>
+                  </div>
+                </div>
+                <p><strong>$this-&gt;db-&gt;orNotLike()</strong></p>
+                <p>This method is identical to <code class="docutils literal"><span class="pre">notLike()</span></code>,
+                  except that multiple
+                  instances are joined by OR:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">like</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">orNotLike</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="s1">&#39;match&#39;</span><span class="p">);</span>
+<span class="c1">// WHERE `title` LIKE &#39;%match% OR  `body` NOT LIKE &#39;%match%&#39; ESCAPE &#39;!&#39;</span>
+</pre>
+                  </div>
+                </div>
+                <p><strong>$this-&gt;db-&gt;groupBy()</strong></p>
+                <p>Permits you to write the GROUP BY portion of your query:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">groupBy</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">);</span> <span class="c1">// Produces: GROUP BY title</span></pre>
+                  </div>
+                </div>
+                <p>You can also pass an array of multiple values as well:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">groupBy</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">));</span>  <span class="c1">// Produces: GROUP BY title, date</span></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="section" id="ordering-results">
+                <h2><a class="toc-backref" href="#id4">Ordering results</a><a class="headerlink"
+                    href="#ordering-results" title="Permalink to this headline">¶</a></h2>
+                <p><strong>$this-&gt;db-&gt;orderBy()</strong></p>
+                <p>Lets you set an ORDER BY clause.</p>
+                <p>The first parameter contains the name of the column you would like to order by.</p>
+                <p>The second parameter lets you set the direction of the result.
+                  Options are <strong>ASC</strong> AND <strong>DESC</strong>.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;DESC&#39;</span><span class="p">);</span>
+<span class="c1">// Produces: ORDER BY `title` DESC</span>
+</pre>
+                  </div>
+                </div>
+                <p>You can also pass your own string in the first parameter:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;title DESC, name ASC&#39;</span><span class="p">);</span>
+<span class="c1">// Produces: ORDER BY `title` DESC, `name` ASC</span>
+</pre>
+                  </div>
+                </div>
+                <p>Or multiple function calls can be made if you need multiple fields.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;DESC&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;ASC&#39;</span><span class="p">);</span>
+<span class="c1">// Produces: ORDER BY `title` DESC, `name` ASC</span>
+</pre>
+                  </div>
+                </div>
+              </div>
+              <div class="section" id="limiting-or-counting-results">
+                <h2><a class="toc-backref" href="#id5">Limiting or Counting Results</a><a class="headerlink"
+                    href="#limiting-or-counting-results" title="Permalink to this headline">¶</a></h2>
+                <p><strong>$this-&gt;db-&gt;limit()</strong></p>
+                <p>Lets you limit the number of rows you would like returned by the query:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>  <span class="c1">// Produces: LIMIT 10</span>
+</pre>
+                  </div>
+                </div>
+                <p>The second parameter lets you set a result offset.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>  <span class="c1">// Produces: LIMIT 20, 10 (in MySQL.  Other databases have slightly different syntax)</span>
+</pre>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section" id="inserting-data">
+                <h2><a class="toc-backref" href="#id7">Inserting Data</a><a class="headerlink" href="#inserting-data"
+                    title="Permalink to this headline">¶</a></h2>
+                <p><strong>$this-&gt;db-&gt;insert()</strong></p>
+                <p>Generates an insert string based on the data you supply, and runs the
+                  query. You can either pass an <strong>array</strong> or an <strong>object</strong> to the
+                  function. Here is an example using an array:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My title&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My Name&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;date&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My date&#39;</span>
+<span class="p">);</span>
+
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+<span class="c1">// Produces: INSERT INTO mytable (title, name, date) VALUES (&#39;My title&#39;, &#39;My name&#39;, &#39;My date&#39;)</span>
+</pre>
+                  </div>
+                </div>
+
+                <p><strong>$this-&gt;db-&gt;insertBatch()</strong></p>
+                <p>Generates an insert string based on the data you supply, and runs the
+                  query. You can pass an <strong>array</strong> to the
+                  function. Here is an example using an array:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="k">array</span><span class="p">(</span>
+                <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My title&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My Name&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;date&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My date&#39;</span>
+        <span class="p">),</span>
+        <span class="k">array</span><span class="p">(</span>
+                <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Another title&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Another Name&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;date&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Another date&#39;</span>
+        <span class="p">)</span>
+<span class="p">);</span>
+
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">insertBatch</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+<span class="c1">// Produces: INSERT INTO mytable (title, name, date) VALUES (&#39;My title&#39;, &#39;My name&#39;, &#39;My date&#39;),  (&#39;Another title&#39;, &#39;Another name&#39;, &#39;Another date&#39;)</span>
+</pre>
+                  </div>
+                </div>
+                <p>The first parameter will contain the table name, the second is an
+                  associative array of values.</p>
+                <div class="admonition note">
+                  <p class="first admonition-title">Note</p>
+                  <p class="last">All values are escaped automatically producing safer queries.</p>
+                </div>
+              </div>
+              <div class="section" id="updating-data">
+                <h2><a class="toc-backref" href="#id8">Updating Data</a><a class="headerlink" href="#updating-data"
+                    title="Permalink to this headline">¶</a></h2>
+                <p><strong>$this-&gt;db-&gt;update()</strong></p>
+                <p>Generates an update string and runs the query based on the data you
+                  supply. You can pass an <strong>array</strong> to the function. Here
+                  is an example using an array:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$title</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span>
+        <span class="s1">&#39;date&#39;</span> <span class="o">=&gt;</span> <span class="nv">$date</span>
+<span class="p">);</span>
+
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id = <span class="nv">$id</span>&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+<span class="c1">// Produces:</span>
+<span class="c1">//</span>
+<span class="c1">//      UPDATE mytable</span>
+<span class="c1">//      SET title = &#39;{$title}&#39;, name = &#39;{$name}&#39;, date = &#39;{$date}&#39;</span>
+<span class="c1">//      WHERE id = $id</span>
+</pre>
+                  </div>
+                </div>
+
+                <div class="admonition note">
+                  <p class="first admonition-title">Note</p>
+                  <p class="last">All values are escaped automatically producing safer queries.</p>
+                </div>
+                <p>You’ll notice the use of the $this-&gt;db-&gt;where() function, enabling you
+                  to set the WHERE clause. You can optionally pass this information
+                  directly into the update function as a string:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">,</span> <span class="s2">&quot;id = 4&quot;</span><span class="p">);</span>
+</pre>
+                  </div>
+                </div>
+                <p>Or as an array:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">));</span>
+</pre>
+                  </div>
+                </div>
+                <p>You may also use the $this-&gt;db-&gt;set() function described above when
+                  performing updates.</p>
+              </div>
+              <div class="section" id="deleting-data">
+                <h2><a class="toc-backref" href="#id9">Deleting Data</a><a class="headerlink" href="#deleting-data"
+                    title="Permalink to this headline">¶</a></h2>
+                <p><strong>$this-&gt;db-&gt;delete()</strong></p>
+                <p>Generates a delete SQL string and runs the query.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">));</span>  <span class="c1">// Produces: // DELETE FROM mytable  // WHERE id = $id</span>
+</pre>
+                  </div>
+                </div>
+                <p>The first parameter is the table name, the second is the where clause.
+                  You can also use the where() or or_where() functions instead of passing
+                  the data to the second parameter of the function:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id </span><span class="p">=</span> <span class="nv">$id</span>&#39;<span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span>
+
+<span class="c1">// Produces:</span>
+<span class="c1">// DELETE FROM mytable</span>
+<span class="c1">// WHERE id = $id</span>
+</pre>
+                  </div>
+                </div>
+                <p>An array of table names can be passed into delete() if you would like to
+                  delete data from more than 1 table.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$tables</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;table1&#39;</span><span class="p">,</span> <span class="s1">&#39;table2&#39;</span><span class="p">,</span> <span class="s1">&#39;table3&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id <span class="p">=</span> <span class="s1">"5"&#39;</span></span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="nv">$tables</span><span class="p">);</span>
+</pre>
+                  </div>
+                </div>
+
+                <p><strong>$this-&gt;db-&gt;truncate()</strong></p>
+                <p>Generates a truncate SQL string and runs the query.</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">truncate</span><span class="p">();</span>
+
+<span class="c1">// or</span>
+
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">truncate</span><span class="p">(</span><span class="s1">&#39;mytable&#39;</span><span class="p">);</span>
+
+<span class="c1">// Produce:</span>
+<span class="c1">// TRUNCATE mytable</span>
+</pre>
+                  </div>
+                </div>
+                <div class="admonition note">
+                  <p class="first admonition-title">Note</p>
+                  <p class="last">If the TRUNCATE command isn’t available, truncate() will
+                    execute as “DELETE FROM table”.</p>
+                </div>
+              </div>
+
+              <div class="section" id="class-reference">
+                <h2><a class="toc-backref" href="#id13">Class Reference</a><a class="headerlink" href="#class-reference"
+                    title="Permalink to this headline">¶</a></h2>
+                <dl class="class">
+                  <dt id="Query_builder">
+                    <em class="property">class </em><code class="descname">QueryBuilder</code><a class="headerlink"
+                      href="#Query_builder" title="Permalink to this definition">¶</a>
+                  </dt>
+                  <dd>
+                    <dl class="method">
+                      <dt id="Query_builder::set_prefix">
+                        <code class="descname">set_prefix</code><span class="sig-paren">(</span><span
+                          class="optional">[</span><em>$prefix = ''</em><span class="optional">]</span><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::set_prefix"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$prefix</strong> (<em>string</em>) – The new prefix to use</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">The DB prefix in use</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">string</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Sets the database prefix, without having to reconnect.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::prefix">
+                        <code class="descname">prefix</code><span class="sig-paren">(</span><span
+                          class="optional">[</span><em>$table = ''</em><span class="optional">]</span><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::dbprefix"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$table</strong> (<em>string</em>) – The table name to prefix</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">The prefixed table name</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">string</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Prepends a database prefix, if one exists in configuration.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::get">
+                        <code class="descname">get</code><span class="sig-paren">(</span><em>$table</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::get"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$table</strong> (<em>string</em>) – The table to query</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query Result</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Compiles and runs SELECT statement based on the already
+                          called Query Builder methods.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::get_where">
+                        <code class="descname">get_where</code><span class="sig-paren">(</span><em>$table</em>,
+                        <em>$where =
+                          NULL</em><span class="sig-paren">)</span><a class="headerlink"
+                          href="#Query_builder::get_where" title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$table</strong> (<em>mixed</em>) – The table(s) to fetch data from; string
+                                    or array</li>
+                                  <li><strong>$where</strong> (<em>string</em>) – The WHERE clause</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query Result</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Same as <code class="docutils literal"><span class="pre">get()</span></code>, but also allows
+                          the WHERE to be added directly.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::select">
+                        <code class="descname">select</code><span class="sig-paren">(</span><em>$select = '*'</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::select"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$select</strong> (<em>string</em>) – The SELECT portion of a query</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query Result</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds a SELECT clause to a query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::select_avg">
+                        <code class="descname">selectAvg</code><span class="sig-paren">(</span><em>$select =
+                          ''</em><span class="sig-paren">)</span><a class="headerlink" href="#Query_builder::select_avg"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$select</strong> (<em>string</em>) – Field to compute the average of</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query Result</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds a SELECT AVG(field) clause to a query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::select_max">
+                        <code class="descname">selectMax</code><span class="sig-paren">(</span><em>$select =
+                          ''</em><span class="sig-paren">)</span><a class="headerlink" href="#Query_builder::select_max"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$select</strong> (<em>string</em>) – Field to compute the maximum of</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query Result</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds a SELECT MAX(field) clause to a query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::select_min">
+                        <code class="descname">selectMin</code><span class="sig-paren">(</span><em>$select =
+                          ''</em><span class="sig-paren">)</span><a class="headerlink" href="#Query_builder::select_min"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$select</strong> (<em>string</em>) – Field to compute the minimum of</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query Result</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds a SELECT MIN(field) clause to a query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::select_sum">
+                        <code class="descname">selectSum</code><span class="sig-paren">(</span><em>$select = ''</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::select_sum"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$select</strong> (<em>string</em>) – Field to compute the sum of</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query Result</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds a SELECT SUM(field) clause to a query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::from">
+                        <code class="descname">from</code><span class="sig-paren">(</span><em>$from</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::from"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$from</strong> (<em>mixed</em>) – Table name(s); string or array</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query Builder</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Specifies the FROM clause of a query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::join">
+                        <code class="descname">join</code><span class="sig-paren">(</span><em>$table</em>,
+                        <em>$cond</em><span class="sig-paren">)</span><a class="headerlink"
+                          href="#Query_builder::join" title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$table</strong> (<em>string</em>) – Table name to join</li>
+                                  <li><strong>$cond</strong> (<em>string</em>) – The JOIN ON condition</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query Builder</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds a JOIN clause to a query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::where">
+                        <code class="descname">where</code><span class="sig-paren">(</span><em>$key</em>, <em>$value = NULL</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::where"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$key</strong> (<em>mixed</em>) – Name of field to compare, or associative
+                                    array</li>
+                                  <li><strong>$value</strong> (<em>mixed</em>) – If a single key, compared to this value
+                                  </li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">DB_Query_Builder instance</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">String</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Generates the WHERE portion of the query.
+                          Separates multiple calls with ‘AND’.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::or_where">
+                        <code class="descname">orWhere</code><span class="sig-paren">(</span><em>$key</em>, <em>$value = NULL</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::or_where"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$key</strong> (<em>mixed</em>) – Name of field to compare, or associative
+                                    array</li>
+                                  <li><strong>$value</strong> (<em>mixed</em>) – If a single key, compared to this value
+                                  </li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">DB_Query_Builder instance</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">String</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Generates the WHERE portion of the query.
+                          Separates multiple calls with ‘OR’.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::like">
+                        <code class="descname">like</code><span class="sig-paren">(</span><em>$field</em>, <em>$match = ''</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::like"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$field</strong> (<em>string</em>) – Field name</li>
+                                  <li><strong>$match</strong> (<em>string</em>) – Text portion to match</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">Query_Builder instance</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query_Builder</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds a LIKE clause to a query, separating multiple calls with AND.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::or_like">
+                        <code class="descname">orLike</code><span class="sig-paren">(</span><em>$field</em>, <em>$match = ''</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::or_like"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$field</strong> (<em>string</em>) – Field name</li>
+                                  <li><strong>$match</strong> (<em>string</em>) – Text portion to match</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">Query_Builder instance</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query_Builder</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds a LIKE clause to a query, separating multiple class with OR.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::not_like">
+                        <code class="descname">notLike</code><span class="sig-paren">(</span><em>$field</em>, <em>$match = ''</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::not_like"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$field</strong> (<em>string</em>) – Field name</li>
+                                  <li><strong>$match</strong> (<em>string</em>) – Text portion to match</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">Query_Builder instance</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query_Builder</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds a NOT LIKE clause to a query, separating multiple calls with AND.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::or_not_like">
+                        <code class="descname">orNotLike</code><span class="sig-paren">(</span><em>$field</em>, <em>$match = ''</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::or_not_like"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$field</strong> (<em>string</em>) – Field name</li>
+                                  <li><strong>$match</strong> (<em>string</em>) – Text portion to match</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">Query_Builder instance</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query_Builder</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds a NOT LIKE clause to a query, separating multiple calls with OR.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::group_by">
+                        <code class="descname">groupBy</code><span class="sig-paren">(</span><em>$by</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::group_by"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$by</strong> (<em>mixed</em>) – Field(s) to group by; string or array</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">Query_Builder instance</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query_Builder</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds a GROUP BY clause to a query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::order_by">
+                        <code class="descname">orderBy</code><span class="sig-paren">(</span><em>$orderby</em>, <em>$direction = ''</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::order_by"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$orderby</strong> (<em>string</em>) – Field to order by</li>
+                                  <li><strong>$direction</strong> (<em>string</em>) – The order requested - ASC or DESC</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">Query_Builder instance</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query_Builder</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds an ORDER BY clause to a query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::limit">
+                        <code class="descname">limit</code><span class="sig-paren">(</span><em>$value</em>, <em>$offset = 0</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::limit"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$value</strong> (<em>int</em>) – Number of rows to limit the results to
+                                  </li>
+                                  <li><strong>$offset</strong> (<em>int</em>) – Number of rows to skip</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">Query_Builder instance</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query_Builder</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds LIMIT and OFFSET clauses to a query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::offset">
+                        <code class="descname">offset</code><span class="sig-paren">(</span><em>$offset</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::offset"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$offset</strong> (<em>int</em>) – Number of rows to skip</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">Query_Builder instance</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">Query_Builder</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Adds an OFFSET clause to a query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::insert">
+                        <code class="descname">insert</code><span class="sig-paren">(</span><em>$table = ''</em>, <em>$set =
+                          NULL</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::insert"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$table</strong> (<em>string</em>) – Table name</li>
+                                  <li><strong>$set</strong> (<em>array</em>) – An associative array of field/value pairs
+                                  </li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">TRUE on success, FALSE on failure</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">bool</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Compiles and executes an INSERT statement.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::insert_batch">
+                        <code class="descname">insertBatch</code><span class="sig-paren">(</span><em>$table</em>, <em>$set = NULL</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::insert_batch"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$table</strong> (<em>string</em>) – Table name</li>
+                                  <li><strong>$set</strong> (<em>array</em>) – Data to insert</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">Number of rows inserted or FALSE on failure</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">mixed</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Compiles and executes batch <code
+                            class="docutils literal"><span class="pre">INSERT</span></code> statements.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::update">
+                        <code class="descname">update</code><span class="sig-paren">(</span><em>$table</em>, <em>$set =
+                          NULL</em>, <em>$where = NULL</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::update"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$table</strong> (<em>string</em>) – Table name</li>
+                                  <li><strong>$set</strong> (<em>array</em>) – An associative array of field/value pairs
+                                  </li>
+                                  <li><strong>$where</strong> (<em>string</em>) – The WHERE clause</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">TRUE on success, FALSE on failure</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">bool</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Compiles and executes an UPDATE statement.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::delete">
+                        <code class="descname">delete</code><span class="sig-paren">(</span><em>$table = ''</em>, <em>$where =
+                          ''</em><span class="sig-paren">)</span><a
+                          class="headerlink" href="#Query_builder::delete" title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$table</strong> (<em>mixed</em>) – The table(s) to delete from; string or
+                                    array</li>
+                                  <li><strong>$where</strong> (<em>string</em>) – The WHERE clause</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">Query_builder instance or FALSE on failure</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">bool</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Compiles and executes a DELETE query.</p>
+                      </dd>
+                    </dl>
+
+                    <dl class="method">
+                      <dt id="Query_builder::truncate">
+                        <code class="descname">truncate</code><span class="sig-paren">(</span><em>$table</em><span
+                          class="sig-paren">)</span><a class="headerlink" href="#Query_builder::truncate"
+                          title="Permalink to this definition">¶</a>
+                      </dt>
+                      <dd>
+                        <table class="docutils field-list" frame="void" rules="none">
+                          <col class="field-name" />
+                          <col class="field-body" />
+                          <tbody valign="top">
+                            <tr class="field-odd field">
+                              <th class="field-name">Parameters:</th>
+                              <td class="field-body">
+                                <ul class="first simple">
+                                  <li><strong>$table</strong> (<em>string</em>) – Table name</li>
+                                </ul>
+                              </td>
+                            </tr>
+                            <tr class="field-even field">
+                              <th class="field-name">Returns:</th>
+                              <td class="field-body">
+                                <p class="first">TRUE on success, FALSE on failure</p>
+                              </td>
+                            </tr>
+                            <tr class="field-odd field">
+                              <th class="field-name">Return type:</th>
+                              <td class="field-body">
+                                <p class="first last">bool</p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p>Executes a TRUNCATE statement on a table.</p>
+                        <div class="admonition note">
+                          <p class="first admonition-title">Note</p>
+                          <p class="last">If the database platform in use doesn’t support TRUNCATE,
+                            a DELETE statement will be used instead.</p>
+                        </div>
+                      </dd>
+                    </dl>
+
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+
+          <footer>
+            <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+              <a href="../libraries/index.html" class="btn btn-neutral float-right" title="Libraries">Next
+                <span class="fa fa-arrow-circle-right"></span></a>
+
+              <a href="results.html" class="btn btn-neutral" title="Query Helper Methods"><span
+                  class="fa fa-arrow-circle-left"></span> Previous</a>
+            </div>
+            <hr />
+
+            <div role="contentinfo">
+              <p>&copy; Copyright 2020 Codingox.</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT: './',
+      VERSION: '1.0',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE: false
+    };
+  </script>
+
+  <script type="text/javascript" src="../assets/jquery.js"></script>
+  <script type="text/javascript" src="../assets/underscore.js"></script>
+  <script type="text/javascript" src="../assets/doctools.js"></script>
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+    jQuery(function () {
+      SphinxRtdTheme.StickyNav.enable();
+    });
+  </script>
+
+</body>
+
+</html>

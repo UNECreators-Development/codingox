@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Codingox | Installation</title>
+  <!-- <link rel="shortcut icon" href="" /> -->
+  <link rel="stylesheet" href="../assets/css/webtheme.css" type="text/css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Codingox</a>
+      </div>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../general/welcome.html">Welcome to Codingox</a>
+          </li>
+        </ul>
+        <ul class="current">
+          <li class="toctree-l1 current"><a class="current reference internal" href="javascript:void(0)">Installation
+              Instructions</a>
+            <ul class="current">
+              <li class="toctree-l2"><a class="reference internal" href="downloads.html">Downloading Codingox</a>
+              </li>
+              <li class="toctree-l2 current"><a class="current reference internal"
+                  href="javascript:void(0)">Installation
+                  Instructions</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../overview/index.html">Codingox Overview</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../general/index.html">General Topics</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../database/index.html">Database</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../libraries/index.html">Libraries</a>
+          </li>
+          <li class="toctree-l1">
+            <a class="reference internal" href="../helpers/index.html">Helpers</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Codingox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ul class="wy-breadcrumbs">
+              <li><a href="../index.html">Docs</a>&raquo;</li>
+              <li>Installation Instructions</li>
+            </ul>
+            <hr />
+          </div>
+          <div role="main" class="document">
+            <div class="section" id="installation-instructions">
+              <h1>Installation Instructions<a class="headerlink" href="#installation-instructions"
+                  title="Permalink to this headline">¶</a></h1>
+              <p>Codingox is installed in four steps:</p>
+              <ol class="arabic simple">
+                <li>Unzip the downloaded file.</li>
+                <li>Upload files to your server. <em>index.php</em> file will be at your root.
+                </li>
+                <li>Open the <em>config/config.php</em> file with a text editor and
+                  set your App URL.</li>
+                <li>Open the
+                  <em>config/database.php</em> file with a text editor and set your
+                  database settings.
+                </li>
+              </ol>
+              <p>For the security, system and any other folders
+                should be placed with web root so that they are not directly accessible
+                via a browser. By default, <em>.htaccess</em> files are included in each folder
+                to help prevent direct access, but it is best to remove them from public
+                access entirely in case the web server configuration changes or doesn’t
+                abide by the <em>.htaccess</em>.</p>
+              <p>One additional measure to take in production environments is to disable
+                PHP error reporting and any other development-only functionality. This can be done by setting the <code
+                  class="docutils literal"><span class="pre">ENVIRONMENT</span></code> in <em>config/config.php</em>.</p>
+              <p>If you’re new to Codingox, please read the <a class="reference internal"
+                  href="../overview/getting_started.html"><span class="doc">Getting
+                    Started</span></a> section of the User Guide
+                to begin learning how to build dynamic PHP applications. Enjoy!</p>
+              <div class="toctree-wrapper compound">
+              </div>
+            </div>
+          </div>
+
+          <footer>
+            <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+              <a href="../overview/index.html" class="btn btn-neutral float-right" title="Codingox Overview">Next <span
+                  class="fa fa-arrow-circle-right"></span></a>
+              <a href="../general/welcome.html" class="btn btn-neutral" title="Welcome to Codingox"><span
+                  class="fa fa-arrow-circle-left"></span> Previous</a>
+            </div>
+            <hr />
+
+            <div role="contentinfo">
+              <p>&copy; Copyright 2020 Codingox.</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT: './',
+      VERSION: '1.0',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE: false
+    };
+  </script>
+
+  <script type="text/javascript" src="../assets/jquery.js"></script>
+  <script type="text/javascript" src="../assets/underscore.js"></script>
+  <script type="text/javascript" src="../assets/doctools.js"></script>
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+    jQuery(function () {
+      SphinxRtdTheme.StickyNav.enable();
+    });
+  </script>
+</body>
+
+</html>

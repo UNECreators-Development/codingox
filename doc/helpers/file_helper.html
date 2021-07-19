@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Codingox | Files Helpers</title>
+  <!-- <link rel="shortcut icon" href="" /> -->
+  <link rel="stylesheet" href="../assets/css/webtheme.css" type="text/css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> Codingox</a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul>
+          <li class="toctree-l1"><a class="reference internal" href="../general/welcome.html">Welcome to Codingox</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../installation/index.html">Installation
+              Instructions</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Codingox Overview</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../general/index.html">General Topics</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../database/index.html">Database</a>
+          </li>
+          <li class="toctree-l1"><a class="reference internal" href="../libraries/index.html">Libraries</a>
+          </li>
+        </ul>
+        <ul class="current">
+          <li class="toctree-l1 current"><a class="reference internal" href="index.html">Helpers</a>
+            <ul class="current">
+              <li class="toctree-l2"><a class="reference internal" href="email_helper.html">Email Helper</a></li>
+              <li class="toctree-l2 current"><a class="current reference internal" href="javascript:void(0)">File
+                  Helper</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="form_helper.html">Form Helper</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="html_helper.html">HTML Helper</a></li>
+              <li class="toctree-l2"><a class="reference internal" href="url_helper.html">URL Helper</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Codingox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ul class="wy-breadcrumbs">
+              <li><a href="../index.html">Docs</a>&raquo;</li>
+
+              <li><a href="index.html">Helpers</a>&raquo;</li>
+
+              <li>File Helper</li>
+            </ul>
+            <hr />
+          </div>
+
+          <div role="main" class="document">
+            <div class="section" id="file-helper">
+              <h1>File Helper<a class="headerlink" href="#file-helper" title="Permalink to this headline">¶</a></h1>
+              <p>The File Helper file contains functions that assist in working with files.</p>
+              <div class="contents local topic" id="contents">
+                <ul class="simple">
+                  <li><a class="reference internal" href="#loading-this-helper" id="id1">Loading this Helper</a></li>
+                  <li><a class="reference internal" href="#available-functions" id="id2">Available Functions</a></li>
+                </ul>
+              </div>
+              <div class="custom-index container"></div>
+              <div class="section" id="loading-this-helper">
+                <h2><a class="toc-backref" href="#id1">Loading this Helper</a><a class="headerlink"
+                    href="#loading-this-helper" title="Permalink to this headline">¶</a></h2>
+                <p>This helper is loaded using the following code:</p>
+                <div class="highlight-ci">
+                  <div class="highlight">
+                    <pre><span></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">helper</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">);</span></pre>
+                  </div>
+                </div>
+              </div>
+              <div class="section" id="available-functions">
+                <h2><a class="toc-backref" href="#id2">Available Functions</a><a class="headerlink"
+                    href="#available-functions" title="Permalink to this headline">¶</a></h2>
+                <p>The following functions are available:</p>
+                <dl class="function">
+                  <dt id="read_file">
+                    <code class="descname">read_file</code><span class="sig-paren">(</span><em>$file</em><span
+                      class="sig-paren">)</span><a class="headerlink" href="#read_file"
+                      title="Permalink to this definition">¶</a>
+                  </dt>
+                  <dd>
+                    <table class="docutils field-list" frame="void" rules="none">
+                      <col class="field-name" />
+                      <col class="field-body" />
+                      <tbody valign="top">
+                        <tr class="field-odd field">
+                          <th class="field-name">Parameters:</th>
+                          <td class="field-body">
+                            <ul class="first simple">
+                              <li><strong>$file</strong> (<em>string</em>) – File path</li>
+                            </ul>
+                          </td>
+                        </tr>
+                        <tr class="field-even field">
+                          <th class="field-name">Returns:</th>
+                          <td class="field-body">
+                            <p class="first">File contents or FALSE on failure</p>
+                          </td>
+                        </tr>
+                        <tr class="field-odd field">
+                          <th class="field-name">Return type:</th>
+                          <td class="field-body">
+                            <p class="first last">string</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>Returns the data contained in the file specified in the path.</p>
+                    <p>Example:</p>
+                    <div class="highlight-ci">
+                      <div class="highlight">
+                        <pre><span></span><span class="nv">$string</span> <span class="o">=</span> <span class="nx">read_file</span><span class="p">(</span><span class="s1">&#39;./path/to/file.php&#39;</span><span class="p">);</span></pre>
+                      </div>
+                    </div>
+                    <p>The path can be a relative or full server path. Returns FALSE (boolean) on failure.</p>
+                    <div class="admonition note">
+                      <p class="first admonition-title">Note</p>
+                      <p class="last">The path is relative to your main site index.php file, NOT your
+                        controller or view files. Codingox uses a front controller so paths
+                        are always relative to the main site index.</p>
+                    </div>
+                    <div class="admonition note">
+                      <p class="first admonition-title">Note</p>
+                      <p class="last">This function is DEPRECATED. Use the native <code
+                          class="docutils literal"><span class="pre">file_get_contents()</span></code>
+                        instead.</p>
+                    </div>
+                    <div class="admonition important">
+                      <p class="first admonition-title">Important</p>
+                      <p class="last">If your server is running an <strong>open_basedir</strong> restriction this
+                        function might not work if you are trying to access a file above the
+                        calling script.</p>
+                    </div>
+                  </dd>
+                </dl>
+
+                <dl class="function">
+                  <dt id="write_file">
+                    <code class="descname">write_file</code><span class="sig-paren">(</span><em>$path</em>,
+                    <em>$data</em>, <em>$mode = 'wb'</em><span class="sig-paren">)</span><a class="headerlink"
+                      href="#write_file" title="Permalink to this definition">¶</a>
+                  </dt>
+                  <dd>
+                    <table class="docutils field-list" frame="void" rules="none">
+                      <col class="field-name" />
+                      <col class="field-body" />
+                      <tbody valign="top">
+                        <tr class="field-odd field">
+                          <th class="field-name">Parameters:</th>
+                          <td class="field-body">
+                            <ul class="first simple">
+                              <li><strong>$path</strong> (<em>string</em>) – File path</li>
+                              <li><strong>$data</strong> (<em>string</em>) – Data to write to file</li>
+                              <li><strong>$mode</strong> (<em>string</em>) – <code
+                                  class="docutils literal"><span class="pre">fopen()</span></code> mode</li>
+                            </ul>
+                          </td>
+                        </tr>
+                        <tr class="field-even field">
+                          <th class="field-name">Returns:</th>
+                          <td class="field-body">
+                            <p class="first">TRUE if the write was successful, FALSE in case of an error</p>
+                          </td>
+                        </tr>
+                        <tr class="field-odd field">
+                          <th class="field-name">Return type:</th>
+                          <td class="field-body">
+                            <p class="first last">bool</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>Writes data to the file specified in the path. If the file does not exist then the
+                      function will create it.</p>
+                    <p>Example:</p>
+                    <div class="highlight-ci">
+                      <div class="highlight">
+                        <pre><span></span><span class="nv">$data</span> <span class="o">=</span> <span class="s1">&#39;Some file data&#39;</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nx">write_file</span><span class="p">(</span><span class="s1">&#39;./path/to/file.php&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">))</span>
+<span class="p">{</span>
+        <span class="k">echo</span> <span class="s1">&#39;Unable to write the file&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+        <span class="k">echo</span> <span class="s1">&#39;File written!&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+                      </div>
+                    </div>
+                    <p>You can optionally set the write mode via the third parameter:</p>
+                    <div class="highlight-ci">
+                      <div class="highlight">
+                        <pre><span></span><span class="nx">write_file</span><span class="p">(</span><span class="s1">&#39;./path/to/file.php&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">);</span></pre>
+                      </div>
+                    </div>
+                    <p>The default mode is ‘wb’. Please see the <a class="reference external"
+                        href="http://php.net/manual/en/function.fopen.php">PHP user guide</a>
+                      for mode options.</p>
+                    <div class="admonition note">
+                      <p class="first admonition-title">Note</p>
+                      <p class="last">The path is relative to your main site index.php file, NOT your
+                        controller or view files. Codingox uses a front controller so paths
+                        are always relative to the main site index.</p>
+                    </div>
+                    <div class="admonition note">
+                      <p class="first admonition-title">Note</p>
+                      <p class="last">This function acquires an exclusive lock on the file while writing to it.</p>
+                    </div>
+                  </dd>
+                </dl>
+
+                <dl class="function">
+                  <dt id="delete_files">
+                    <code class="descname">delete_file</code><span class="sig-paren">(</span><em>$path</em><span
+                      class="sig-paren">)</span><a class="headerlink" href="#delete_files"
+                      title="Permalink to this definition">¶</a>
+                  </dt>
+                  <dd>
+                    <table class="docutils field-list" frame="void" rules="none">
+                      <col class="field-name" />
+                      <col class="field-body" />
+                      <tbody valign="top">
+                        <tr class="field-odd field">
+                          <th class="field-name">Parameters:</th>
+                          <td class="field-body">
+                            <ul class="first simple">
+                              <li><strong>$path</strong> (<em>string</em>) – Directory path</li>
+                            </ul>
+                          </td>
+                        </tr>
+                        <tr class="field-even field">
+                          <th class="field-name">Returns:</th>
+                          <td class="field-body">
+                            <p class="first">TRUE on success, FALSE in case of an error</p>
+                          </td>
+                        </tr>
+                        <tr class="field-odd field">
+                          <th class="field-name">Return type:</th>
+                          <td class="field-body">
+                            <p class="first last">bool</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <p>Example:</p>
+                    <div class="highlight-ci">
+                      <div class="highlight">
+                        <pre><span></span><span class="nx">delete_file</span><span class="p">(</span><span class="s1">&#39;./path/to/directory/&#39;</span><span class="p">);</span></pre>
+                      </div>
+                    </div>
+                    <div class="admonition note">
+                      <p class="first admonition-title">Note</p>
+                      <p class="last">The files must be writable or owned by the system in order to be deleted.</p>
+                    </div>
+                  </dd>
+                </dl>
+
+                <dl class="function">
+                  <dt id="get_filenames">
+                    <code class="descname">get_filename</code><span class="sig-paren">(</span><em>$source_dir</em>,
+                    <em>$include_path = FALSE</em><span class="sig-paren">)</span><a class="headerlink"
+                      href="#get_filenames" title="Permalink to this definition">¶</a>
+                  </dt>
+                  <dd>
+                    <table class="docutils field-list" frame="void" rules="none">
+                      <col class="field-name" />
+                      <col class="field-body" />
+                      <tbody valign="top">
+                        <tr class="field-odd field">
+                          <th class="field-name">Parameters:</th>
+                          <td class="field-body">
+                            <ul class="first simple">
+                              <li><strong>$source_dir</strong> (<em>string</em>) – Directory path</li>
+                              <li><strong>$include_path</strong> (<em>bool</em>) – Whether to include the path as part
+                                of the filenames</li>
+                            </ul>
+                          </td>
+                        </tr>
+                        <tr class="field-even field">
+                          <th class="field-name">Returns:</th>
+                          <td class="field-body">
+                            <p class="first">An array of file names</p>
+                          </td>
+                        </tr>
+                        <tr class="field-odd field">
+                          <th class="field-name">Return type:</th>
+                          <td class="field-body">
+                            <p class="first last">array</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>Takes a server path as input and returns an array containing the names of all files
+                      contained within it. The file path can optionally be added to the file names by setting
+                      the second parameter to TRUE.</p>
+                    <p>Example:</p>
+                    <div class="highlight-ci">
+                      <div class="highlight">
+                        <pre><span></span><span class="nv">$controllers</span> <span class="o">=</span> <span class="nx">get_filenames</span><span class="p">(</span><span class="nx">APP_PATH</span><span class="o">.</span><span class="s1">&#39;controllers/&#39;</span><span class="p">);</span></pre>
+                      </div>
+                    </div>
+                  </dd>
+                </dl>
+
+                <dl class="function">
+                  <dt id="get_file_info">
+                    <code class="descname">get_file_info</code><span class="sig-paren">(</span><em>$file</em>,
+                    <em>$returned_values = array('name'</em>, <em>'server_path'</em>,
+                    <em>'size'</em>, <em>'date')</em><span class="sig-paren">)</span><a class="headerlink"
+                      href="#get_file_info" title="Permalink to this definition">¶</a>
+                  </dt>
+                  <dd>
+                    <table class="docutils field-list" frame="void" rules="none">
+                      <col class="field-name" />
+                      <col class="field-body" />
+                      <tbody valign="top">
+                        <tr class="field-odd field">
+                          <th class="field-name">Parameters:</th>
+                          <td class="field-body">
+                            <ul class="first simple">
+                              <li><strong>$file</strong> (<em>string</em>) – File path</li>
+                              <li><strong>$returned_values</strong> (<em>array</em>) – What type of info to return</li>
+                            </ul>
+                          </td>
+                        </tr>
+                        <tr class="field-even field">
+                          <th class="field-name">Returns:</th>
+                          <td class="field-body">
+                            <p class="first">An array containing info on the specified file or FALSE on failure</p>
+                          </td>
+                        </tr>
+                        <tr class="field-odd field">
+                          <th class="field-name">Return type:</th>
+                          <td class="field-body">
+                            <p class="first last">array</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>Given a file and path, returns (optionally) the <em>name</em>, <em>path</em>, <em>size</em> and
+                      <em>date modified</em>
+                      information attributes for a file. Second parameter allows you to explicitly declare what
+                      information you want returned.
+                    </p>
+                    <p>Valid <code class="docutils literal"><span class="pre">$returned_values</span></code> options
+                      are: <cite>name</cite>, <cite>size</cite>, <cite>date</cite>, <cite>readable</cite>,
+                      <cite>writeable</cite>,
+                      <cite>executable</cite> and <cite>fileperms</cite>.
+                    </p>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+
+          <footer>
+            <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+              <a href="form_helper.html" class="btn btn-neutral float-right" title="Form Helper">Next <span
+                  class="fa fa-arrow-circle-right"></span></a>
+
+              <a href="email_helper.html" class="btn btn-neutral" title="Email Helper"><span
+                  class="fa fa-arrow-circle-left"></span> Previous</a>
+            </div>
+            <hr />
+
+            <div role="contentinfo">
+              <p>&copy; Copyright 2020 Codingox.</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+      URL_ROOT: './',
+      VERSION: '1.0',
+      COLLAPSE_INDEX: false,
+      FILE_SUFFIX: '.html',
+      HAS_SOURCE: false
+    };
+  </script>
+
+  <script type="text/javascript" src="../assets/jquery.js"></script>
+  <script type="text/javascript" src="../assets/underscore.js"></script>
+  <script type="text/javascript" src="../assets/doctools.js"></script>
+  <script type="text/javascript" src="../assets/js/theme.js"></script>
+
+  <script type="text/javascript">
+    jQuery(function () {
+      SphinxRtdTheme.StickyNav.enable();
+    });
+  </script>
+
+</body>
+
+</html>
